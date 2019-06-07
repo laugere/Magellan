@@ -1,8 +1,10 @@
 import csv
 import os
 import glob
+import sys
 
 
+### Pas utile ###
 def GetObjectClass(CsvPath):
     ObjectClass = []
 
@@ -17,28 +19,17 @@ def GetObjectClass(CsvPath):
 def GetAllS57Repertory(S57FilesPath):
     S57Path = []
     for _file in glob.glob(('{0}{1}*.000').format(S57FilesPath, os.sep)):
-        S57Path.append('.'.join(_file.split('.')[:-1]))
+        S57Path.append(_file)
     
     return S57Path
 
-def OgrCommandLine(GeoJSONDestinationPath, DestinationFile, S57FilePath, ObjectClass):
-    _cmd = os.system('ogr2ogr -progress -t_srs EPSG:4326 -f GeoJSON {0}/{1}.json {2} {3}'.format(GeoJSONDestinationPath, DestinationFile, S57FilePath, ObjectClass.lower()))
-    if _cmd == 1:
-        os.remove('{0}/{1}.json'.format(GeoJSONDestinationPath, DestinationFile))
-
-def ExtractToGeoJSON(S57FilesPath, GeoJSONDestinationPath):
-    os.mkdir(GeoJSONDestinationPath + os.sep + S57FilesPath)
+def ExtractToGeoJSON(S57FilesPath, HostDatabase, UserName, Password, Database):
     for _file in GetAllS57Repertory(S57FilesPath):
-        os.mkdir(GeoJSONDestinationPath+os.sep+_file)
-        for _object in GetObjectClass('s57objectclasses.csv'):
-            OgrCommandLine(GeoJSONDestinationPath+os.sep+_file, str(_object), str(_file+'.000'), str(_object))
-
-
+        _cmd = os.system('ogr2ogr -skipfailures -t_srs EPSG:4326 -f PostGreSQL PG:"host={0} user={1} password={2} dbname={3}" {4}'.format(HostDatabase, UserName, Password, Database, _file))
 
 
 
 ########################################
 ####### MAIN COMMAND FOR EXTRACT #######
 ########################################
-ExtractToGeoJSON('ENC_ROOT', 'GeoJSON')
-
+ExtractToGeoJSON(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5])
