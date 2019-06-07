@@ -2,9 +2,9 @@
 
 ### Introduction
 
-Application for extract S57 map into GeoJSon.
+Application for extract S57 map into PostGis Database.
 
 ### Getting Started
 #### Basic Commmand
-    ExtractToGeoJSON ( <Destination Path>, <S57 files folder path (.000)> )
->Extract S57 file to GeoJson directory
+    py Magellan.py <S57 Folder Path> <Host Database> <User Name> <Password> <Database Name>
+>Extract S57 file to PostGis Database.
