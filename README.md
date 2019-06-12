@@ -10,7 +10,7 @@ Application for extract S57 map into PostGis Database.
 >Extract S57 file to PostGis Database.
 
 #### Init Commmand
-    py InitMagellan.py < Architecture (64 or 32) >
+    py InitMagellan.py < GDAL installation folder path > < GDAL-data folder path >
 >Inititalize environment variables for GDAL.
 
 ### Files
