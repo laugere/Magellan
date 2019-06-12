@@ -22,4 +22,7 @@ def InitGDAL(GDALArch):
     except:
         print('ERROR : Not a valid type for architecture')
 
+########################################
+####### MAIN COMMAND FOR INIT ##########
+########################################
 InitGDAL(sys.argv[1])
