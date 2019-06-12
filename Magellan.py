@@ -32,4 +32,8 @@ def ExtractToGeoJSON(S57FilesPath, HostDatabase, UserName, Password, Database):
 ########################################
 ####### MAIN COMMAND FOR EXTRACT #######
 ########################################
-ExtractToGeoJSON(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5])
+try:
+    ExtractToGeoJSON(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5])
+except:
+    print('COMMAND USAGE : py Magellan.py <S57 Folder Path> <Host Database> <User Name> <Password> <Database Name>')
+    print('||   if GDAL is not initialized launch InitMagellan.py command')
