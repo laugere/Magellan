@@ -25,11 +25,15 @@ def GetAllS57Repertory(S57FilesPath):
 
 def ExtractToGeoJSON(S57FilesPath, HostDatabase, UserName, Password, Database):
     for _file in GetAllS57Repertory(S57FilesPath):
-        _cmd = os.system('ogr2ogr -skipfailures -t_srs EPSG:4326 -f PostGreSQL PG:"host={0} user={1} password={2} dbname={3}" {4}'.format(HostDatabase, UserName, Password, Database, _file))
+        _cmd = os.system('ogr2ogr -oo SPLIT_MULTIPOINT=ON -skipfailures -t_srs EPSG:4326 -f PostGreSQL PG:"host={0} user={1} password={2} dbname={3}" {4}'.format(HostDatabase, UserName, Password, Database, _file))
 
 
 
 ########################################
 ####### MAIN COMMAND FOR EXTRACT #######
 ########################################
-ExtractToGeoJSON(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5])
+try:
+    ExtractToGeoJSON(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5])
+except:
+    print('COMMAND USAGE : py Magellan.py <S57 Folder Path> <Host Database> <User Name> <Password> <Database Name>')
+    print('||   if GDAL is not initialized launch InitMagellan.py command')
