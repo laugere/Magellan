@@ -3,19 +3,6 @@ import os
 import glob
 import sys
 
-
-### Pas utile ###
-def GetObjectClass(CsvPath):
-    ObjectClass = []
-
-    with open(CsvPath, 'r') as f:
-        reader = csv.reader(f)
-        for row in reader:
-            if row != [] and row[2] == row[2].upper():
-                ObjectClass.append(row[2])
-    
-    return ObjectClass
-
 def GetAllS57Repertory(S57FilesPath):
     S57Path = []
     for _file in glob.glob(('{0}{1}*.000').format(S57FilesPath, os.sep)):
@@ -35,5 +22,5 @@ def ExtractToGeoJSON(S57FilesPath, HostDatabase, UserName, Password, Database):
 try:
     ExtractToGeoJSON(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5])
 except:
-    print('COMMAND USAGE : py Magellan.py <S57 Folder Path> <Host Database> <User Name> <Password> <Database Name>')
+    print('COMMAND USAGE : py Magellan.py < S57 Folder Path > < Host Database > < User Name > < Password > < Database Name >')
     print('||   if GDAL is not initialized launch InitMagellan.py command')
