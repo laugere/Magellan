@@ -13,7 +13,7 @@ def InitDatabase(DatabaseName, Host, User, Password, Port):
             Connection.commit()
             for Attribute in GetAttributes()[GetObjectClass("GDALCSV/s57objectclasses.csv", 2).index(Object)]:
                 if(Attribute != ""):
-                    Query = 'ALTER TABLE "{0}" ADD COLUMN "{1}" VARCHAR'.format(Object.lower(), Attribute)
+                    Query = 'ALTER TABLE "{0}" ADD COLUMN "{1}" text'.format(Object.lower(), Attribute.lower())
                     Cursor.execute(Query)
                     Connection.commit()
 
