@@ -12,6 +12,7 @@ def InitGDAL(GDALInstallPath, GDALDataPath):
 ########################################
 ####### MAIN COMMAND FOR INIT ##########
 ########################################
+
 try:
     InitGDAL(sys.argv[1], sys.argv[2])
 except:
