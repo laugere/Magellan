@@ -13,7 +13,7 @@ Application for extract S57 map in PostGis Database.
     py InitMagellan.py < GDAL installation folder path > < GDAL-data folder path >
 >Initialize environment variables for GDAL.
 
-#### InitDatabse Command
+#### InitDatabase Command
     py InitDatabase.py < Database Name > < Host Database > < User Name > < Password > < Port >
 >Initialize S57 database with all objects and their attributes.
 
