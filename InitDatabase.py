@@ -13,11 +13,15 @@ def InitDatabase(DatabaseName, Host, User, Password, Port):
     ListAttribute = GetAttributesTypeList()
 
     for Object in GetObjectClass("GDALCSV/s57objectclasses.csv", 2):
+        print("______________________________________________________________________")
+        print("Création de la table {0}".format(Object))
+        print("______________________________________________________________________")
         Query = 'CREATE TABLE "{0}" (wkb_geometry geometry);'.format(Object.lower())
         Cursor.execute(Query)
         Connection.commit()
         for Attribute in GetAttributes()[GetObjectClass("GDALCSV/s57objectclasses.csv", 2).index(Object)]:
             if Attribute != "":
+                print("Insertion de la colonne {0}".format(Attribute))
                 _Type = GetAttributeType(ListAttribute, Attribute.lower())
                 Query = 'ALTER TABLE "{0}" ADD COLUMN "{1}" {2}'.format(Object.lower(), Attribute.lower(), _Type)
                 Cursor.execute(Query)
@@ -98,7 +102,8 @@ def GetAttributes():
 ########################################
 ####### MAIN COMMAND FOR INIT ##########
 ########################################
-
-if InitDatabase(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5]) != 0:
+try:
+    InitDatabase(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5])
+except:
     print('COMMAND USAGE : py InitDatabase.py < Database Name > < Host Database > < User Name > < Password > < Port >')
     
