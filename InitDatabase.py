@@ -6,7 +6,7 @@ import time
 
 
 ## MAIN COMMAND FOR INITIALIZE DATABASE
-def InitDatabase(DatabaseName, Host, User, Password, Port):
+def InitDatabase(DatabaseName, Host, Port, User, Password):
     Connection = psycopg2.connect(user = User, password = Password, host = Host, port = Port, database = DatabaseName)
     Cursor = Connection.cursor()
 
@@ -105,5 +105,5 @@ def GetAttributes():
 try:
     InitDatabase(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5])
 except:
-    print('COMMAND USAGE : py InitDatabase.py < Database Name > < Host Database > < User Name > < Password > < Port >')
+    print('COMMAND USAGE : py InitDatabase.py < Database Name > < Host Database > < Port > < User Name > < Password >')
     
