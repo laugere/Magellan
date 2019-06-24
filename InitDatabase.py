@@ -13,7 +13,7 @@ def InitDatabase(DatabaseName, Host, Port, User, Password):
     ListAttribute = GetAttributesTypeList()
 
     for Object in GetObjectClass("GDALCSV/s57objectclasses.csv", 2):
-        print("______________________________________________________________________")
+        print("______________________________________________________________________\n")
         print("Création de la table {0}".format(Object))
         print("______________________________________________________________________")
         Query = 'CREATE TABLE "{0}" (wkb_geometry geometry);'.format(Object.lower())
