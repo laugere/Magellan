@@ -5,27 +5,49 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Python: InitDatabase.py",
+            "name": "Python : InitDatabase_RE",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/InitDatabase_RE.py",
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "Python: InitDatabase",
             "type": "python",
             "request": "launch",
             "program": "${workspaceFolder}/InitDatabase.py",
-            "args": ["magellanTest", "labs.geogarage.com", "5432", "martin", "d1frukobRo3a"],
+            "args": [
+                "ENC_ES",
+                "labs.geogarage.com",
+                "5432",
+                "martin",
+                "d1frukobRo3a"
+            ],
             "console": "integratedTerminal"
         },
         {
-            "name": "Python: Magellan.py",
+            "name": "Python: Magellan",
             "type": "python",
             "request": "launch",
             "program": "${workspaceFolder}/Magellan.py",
-            "args": ["C:\\Users\\Martin\\Documents\\Barcelone", "labs.geogarage.com", "5432", "martin", "d1frukobRo3a", "barcelone"],
+            "args": [
+                "C:\\Users\\Martin\\Documents\\Barcelone",
+                "labs.geogarage.com",
+                "5432",
+                "martin",
+                "d1frukobRo3a",
+                "barcelone"
+            ],
             "console": "integratedTerminal"
         },
         {
-            "name": "Python: FormatTester.py",
+            "name": "Python: FormatTester",
             "type": "python",
             "request": "launch",
             "program": "${workspaceFolder}/FormatTester.py",
-            "args": ["C:\\Users\\Martin\\Downloads\\Bordel\\S63\\ENC_ROOT\\SG\\SG5C4030\\12\\0"],
+            "args": [
+                "C:\\Users\\Martin\\Downloads\\Bordel\\S63\\ENC_ROOT\\SG\\SG5C4030\\12\\0"
+            ],
             "console": "integratedTerminal"
         }
     ]
