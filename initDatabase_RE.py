@@ -100,11 +100,3 @@ def GetAttributeType(charType):
     ## default text
     return "TEXT"
 
-
-sendObjectToSql(getObjectFromCsv("C:\\Users\\marti\\Documents\\Just Magic\\Magellan\\GDALCSV\\s57attributes.csv", "attribute"),
-                getObjectFromCsv("C:\\Users\\marti\\Documents\\Just Magic\\Magellan\\GDALCSV\\magellanS57attributes.csv", "objectClasse"),
-                "martin",
-                "d1frukobRo3a",
-                "labs.geogarage.com",
-                "5432",
-                "ENC_ES")
