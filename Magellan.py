@@ -97,7 +97,8 @@ def sends57ToSql(s57Dir, objects, user, password, host, port, database):
                 pass
     for Object in objects:
         for cell in listCells:
-            command = "ogr2ogr -lco ENCODING=UTF-8 -oo SPLIT_MULTIPOINT=ON -update -append -skipfailures -f PostGreSQL PG:\"host={0} user={1} password={2} dbname={3}\" \"{4}\" {5}".format(host, user, password, database, cell, Object.acronym)
+            ## -lco ENCODING=UTF-8 
+            command = "ogr2ogr -lco FID=fid -oo SPLIT_MULTIPOINT=ON -oo ADD_SOUNDG_DEPTH=ON -update -append -skipfailures -f PostGreSQL PG:\"host={0} user={1} password={2} dbname={3}\" \"{4}\" {5}".format(host, user, password, database, cell, Object.acronym)
             result = subprocess.Popen(command, cwd=envGDAL, stdout=subprocess.PIPE)
             returnedCode = result.wait()
             print(returnedCode)

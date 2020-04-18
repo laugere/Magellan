@@ -618,7 +618,7 @@
 
 50000,Geometry Primitive Category,catgeo,E,F
 
-100000,Gdal object fid,fid,E,F
+100000,Gdal object fid,fid,S,F
 
 100001,Gdal object RCID,RCID,E,F
 
@@ -639,6 +639,8 @@
 100009,Gdal object LNAM_REFS,LNAM_REFS,S,F
 
 100010,Gdal object FFPT_RIND,FFPT_RIND,S,F
+
+100011,Magellan object DEPTH,DEPTH,F,F
 
 
 
