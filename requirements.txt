@@ -1,0 +1,5 @@
+# Name                    Version                   Build  Channel
+gdal                      2.3.2            py37h16ee443_0  
+geos                      3.6.2                h9ef7328_2  
+numpy                     1.18.1           py37h90d3380_1    conda-forge
+psycopg2                  2.7.5            py37h74b6da3_0  
