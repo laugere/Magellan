@@ -114,9 +114,9 @@ def sends57ToSql(tempDir, s57Dir, objects, user, password, host, port, database)
                 for feature in objet['features']:
                     properties = feature['properties']
                     properties.update(CELLID = CELLID)
-                if os.path.exists("{0}/{1}".format(tempDir, CELLID)):
-                    pass
-                else:
+                if not os.path.exists("{0}".format(tempDir)):
+                    os.mkdir("{0}".format(tempDir))
+                if not os.path.exists("{0}/{1}".format(tempDir, CELLID)):
                     os.mkdir("{0}/{1}".format(tempDir, CELLID))
                 with open("{0}/{1}/{2}.json".format(tempDir, CELLID, Object.acronym), 'w') as file:
                     file.write(json.dumps(objet))
