@@ -123,6 +123,7 @@ def sends57ToSql(tempDir, s57Dir, objects, user, password, host, port, database)
                     file.close()
     for cell in listCells:
         for Object in objects:
+            CELLID = os.path.basename(cell).split('.')[0]
             command = "ogr2ogr -lco FID=fid -oo SPLIT_MULTIPOINT=ON -oo ADD_SOUNDG_DEPTH=ON -oo RECODE_BY_DSSI=ON -update -append -skipfailures -f PostGreSQL PG:\"host={1} user={2} password={3} dbname={4}\" \"{5}\" {6}".format("TEST", host, user, password, database, "{0}/{1}/{2}.json".format(tempDir, CELLID, Object.acronym), Object.acronym)
             result = subprocess.Popen(command, cwd=envGDAL, stdout=subprocess.PIPE)
             returnedCode = result.wait()
