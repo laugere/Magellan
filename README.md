@@ -39,5 +39,5 @@ Also Magellan uses csv files in which there are all the attributes of the basic 
 
 Otherwise here is the basic command to send a folder ENC_ROOT to the postGIS database (for example the database will be named ENC_ES) by initializing it:
 
-> magellan.py --initDatabase "path/to/ENC_ROOT/" "username" "password" "host" "port" "ENC_ES"
+> magellan.py --initDatabase "path/to/tempPath" "path/to/ENC_ROOT/" "username" "password" "host" "port" "ENC_ES"
 
