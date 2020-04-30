@@ -3,6 +3,7 @@ import psycopg2
 import argparse
 import os
 import subprocess
+import json
 
 
 ## class
@@ -12,7 +13,7 @@ class objectClasse:
         self.code = code
         self.objectClass = objectClass
         self.acronym = acronym
-        self.genericAttribute = "fid;RCID;PRIM;GRUP;OBJL;RVER;AGEN;FIDN;FIDS;LNAM;LNAM_REFS;FFPT_RIND"
+        self.genericAttribute = "CELLID;fid;RCID;PRIM;GRUP;OBJL;RVER;AGEN;FIDN;FIDS;LNAM;LNAM_REFS;FFPT_RIND"
         self.attribute_A = attribute_A
         self.attribute_B = attribute_B
         self.attribute_C = attribute_C
@@ -61,8 +62,11 @@ def sendObjectToSql(attributes, objects, user, password, host, port, database):
     for Object in objects:
         createQuery = "CREATE TABLE \"{0}\" (wkb_geometry geometry);".format(Object.acronym)
         if createQuery != "":
-            cursor.execute(createQuery)
-            connection.commit()
+            try:
+                cursor.execute(createQuery)
+                connection.commit()
+            except:
+                print("la table existe déjà")
         tableQuery = ""
         tableQuery = getAttributeSql(Object.acronym, attributes, Object.genericAttribute)
         if Object.attribute_A:
@@ -72,12 +76,15 @@ def sendObjectToSql(attributes, objects, user, password, host, port, database):
         if Object.attribute_C:
             tableQuery = tableQuery + getAttributeSql(Object.acronym, attributes, Object.attribute_C)
         if tableQuery != "":
-            cursor.execute(tableQuery)
-            connection.commit()
+            try:
+                cursor.execute(tableQuery)
+                connection.commit()
+            except:
+                print("la table existe déjà")
 
 
 ## ## send s57
-def sends57ToSql(s57Dir, objects, user, password, host, port, database):
+def sends57ToSql(tempDir, s57Dir, objects, user, password, host, port, database):
     listCells = []
     envGDAL = os.environ["GDAL"]
     for _dir, _file, _filenames in os.walk(s57Dir):
@@ -95,13 +102,30 @@ def sends57ToSql(s57Dir, objects, user, password, host, port, database):
             except OSError as err:
                 print(err)
                 pass
-    for Object in objects:
-        for cell in listCells:
-            ## -lco ENCODING=UTF-8 
-            command = "ogr2ogr -lco FID=fid -oo SPLIT_MULTIPOINT=ON -oo ADD_SOUNDG_DEPTH=ON -oo RECODE_BY_DSSI=ON -update -append -skipfailures -f PostGreSQL PG:\"host={1} user={2} password={3} dbname={4}\" \"{5}\" {6}".format("TEST", host, user, password, database, cell, Object.acronym)
+    for cell in listCells:
+        for Object in objects:
+            command = "ogr2ogr -f GeoJSON -oo SPLIT_MULTIPOINT=ON -oo ADD_SOUNDG_DEPTH=ON -oo RECODE_BY_DSSI=ON \"/vsistdout/\" \"{0}\" {1}".format(cell, Object.acronym)
+            CELLID = os.path.basename(cell).split('.')[0]
+            result = subprocess.Popen(command, cwd=envGDAL, stdout=subprocess.PIPE)
+            resultJson = result.communicate()[0]
+            result.wait()
+            if resultJson != b'':
+                objet = json.loads(resultJson)
+                for feature in objet['features']:
+                    properties = feature['properties']
+                    properties.update(CELLID = CELLID)
+                if os.path.exists("{0}/{1}".format(tempDir, CELLID)):
+                    pass
+                else:
+                    os.mkdir("{0}/{1}".format(tempDir, CELLID))
+                with open("{0}/{1}/{2}.json".format(tempDir, CELLID, Object.acronym), 'w') as file:
+                    file.write(json.dumps(objet))
+                    file.close()
+    for cell in listCells:
+        for Object in objects:
+            command = "ogr2ogr -lco FID=fid -oo SPLIT_MULTIPOINT=ON -oo ADD_SOUNDG_DEPTH=ON -oo RECODE_BY_DSSI=ON -update -append -skipfailures -f PostGreSQL PG:\"host={1} user={2} password={3} dbname={4}\" \"{5}\" {6}".format("TEST", host, user, password, database, "{0}/{1}/{2}.json".format(tempDir, CELLID, Object.acronym), Object.acronym)
             result = subprocess.Popen(command, cwd=envGDAL, stdout=subprocess.PIPE)
             returnedCode = result.wait()
-            print(returnedCode)
 
 
 
@@ -139,6 +163,7 @@ argparser = argparse.ArgumentParser()
 argparser.add_argument("--initDatabase", help="Initialize Database for Magellan", action="store_true")
 argparser.add_argument("--csvAttribute", default="GDALCSV\\s57attributes.csv", help="Change s57attribute.csv path")
 argparser.add_argument("--csvObjectClasses", default="GDALCSV\\s57objectclasses.csv", help="Change s57objectClasses path")
+argparser.add_argument("tempDir", help="temp path")
 argparser.add_argument("s57Dir", help="s57 chart path")
 argparser.add_argument("userName", help="Username of the database")
 argparser.add_argument("password", help="Password of the database")
@@ -149,6 +174,7 @@ argparser.add_argument("nameDb", help="name of the database")
 args = argparser.parse_args()
 
 
+tempDir = args.tempDir
 csvAttribute = args.csvAttribute
 csvObjectClasses = args.csvObjectClasses
 s57Dir = args.s57Dir
@@ -164,4 +190,4 @@ objectClassCsv = getObjectFromCsv(csvObjectClasses, "objectClasse")
 if args.initDatabase:
     sendObjectToSql(attributeCsv, objectClassCsv, userName, password, host, port, nameDb)
 
-sends57ToSql(s57Dir, objectClassCsv, userName, password, host, port, nameDb)
+sends57ToSql(tempDir, s57Dir, objectClassCsv, userName, password, host, port, nameDb)
