@@ -104,7 +104,7 @@ def sends57ToSql(tempDir, s57Dir, objects, user, password, host, port, database)
                 pass
     for cell in listCells:
         for Object in objects:
-            command = "ogr2ogr -f GeoJSON -oo SPLIT_MULTIPOINT=ON -oo ADD_SOUNDG_DEPTH=ON -oo RECODE_BY_DSSI=ON \"/vsistdout/\" \"{0}\" {1}".format(cell, Object.acronym)
+            command = "ogr2ogr -overwrite -f GeoJSON -oo SPLIT_MULTIPOINT=ON -oo ADD_SOUNDG_DEPTH=ON -oo RECODE_BY_DSSI=ON \"/vsistdout/\" \"{0}\" {1}".format(cell, Object.acronym)
             CELLID = os.path.basename(cell).split('.')[0]
             result = subprocess.Popen(command, cwd=envGDAL, stdout=subprocess.PIPE)
             resultJson = result.communicate()[0]

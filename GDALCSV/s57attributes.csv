@@ -644,9 +644,74 @@
 
 100012,Magellan object CELLID,CELLID,S,F
 
+100020,Magellan object DSID_EXPP,DSID_EXPP,E,F
 
+100021,Magellan object DSID_INTU,DSID_INTU,E,F
 
+100022,Magellan object DSID_DSNM,DSID_DSNM,L,F
 
+100023,Magellan object DSID_EDTN,DSID_EDTN,L,F
 
+100024,Magellan object DSID_UPDN,DSID_UPDN,L,F
 
+100025,Magellan object DSID_UADT,DSID_UADT,L,F
 
+100026,Magellan object DSID_ISDT,DSID_ISDT,L,F
+
+100027,Magellan object DSID_STED,DSID_STED,F,F
+
+100028,Magellan object DSID_PRSP,DSID_PRSP,E,F
+
+100029,Magellan object DSID_PSDN,DSID_PSDN,L,F
+
+100030,Magellan object DSID_PRED,DSID_PRED,L,F
+
+100031,Magellan object DSID_PROF,DSID_PROF,E,F
+
+100032,Magellan object DSID_AGEN,DSID_AGEN,E,F
+
+100033,Magellan object DSID_COMT,DSID_COMT,L,F
+
+100034,Magellan object DSSI_DSTR,DSSI_DSTR,E,F
+
+100035,Magellan object DSSI_AALL,DSSI_AALL,E,F
+
+100036,Magellan object DSII_NALL,DSSI_NALL,E,F
+
+100037,Magellan object DSII_NOMR,DSSI_NOMR,E,F
+
+100038,Magellan object DSII_NOCR,DSSI_NOCR,E,F
+
+100039,Magellan object DSII_NOGR,DSSI_NOGR,E,F
+
+100040,Magellan object DSII_NOLR,DSSI_NOLR,E,F
+
+100041,Magellan object DSII_NOIN,DSSI_NOIN,E,F
+
+100042,Magellan object DSII_NOCN,DSSI_NOCN,E,F
+
+100043,Magellan object DSII_NOED,DSSI_NOED,E,F
+
+100044,Magellan object DSII_NOFA,DSSI_NOFA,E,F
+
+100045,Magellan object DSPM_HDAT,DSPM_HDAT,E,F
+
+100046,Magellan object DSPM_VDAT,DSPM_VDAT,E,F
+
+100047,Magellan object DSPM_SDAT,DSPM_SDAT,E,F
+
+100048,Magellan object DSPM_CSCL,DSPM_CSCL,E,F
+
+100049,Magellan object DSPM_DUNI,DSPM_DUNI,E,F
+
+100050,Magellan object DSPM_HUNI,DSPM_HUNI,E,F
+
+100051,Magellan object DSPM_PUNI,DSPM_PUNI,E,F
+
+100052,Magellan object DSPM_COUN,DSPM_COUN,E,F
+
+100053,Magellan object DSPM_COMF,DSPM_COMF,E,F
+
+100054,Magellan object DSPM_SOMF,DSPM_SOMF,E,F
+
+100055,Magellan object DSPM_COMT,DSPM_COMT,L,F
