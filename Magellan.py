@@ -13,7 +13,7 @@ class objectClasse:
         self.code = code
         self.objectClass = objectClass
         self.acronym = acronym
-        self.genericAttribute = "CELLID;fid;RCID;PRIM;GRUP;OBJL;RVER;AGEN;FIDN;FIDS;LNAM;LNAM_REFS;FFPT_RIND"
+        self.genericAttribute = "CELLID;fid;RCID;PRIM;GRUP;OBJL;RVER;AGEN;FIDN;FIDS;LNAM;LNAM_REFS;FFPT_RIND;"
         self.attribute_A = attribute_A
         self.attribute_B = attribute_B
         self.attribute_C = attribute_C
