@@ -119,16 +119,12 @@ def sends57ToSql(tempDir, s57Dir, objects, user, password, host, port, database)
                         os.mkdir("{0}".format(tempDir))
                     if not os.path.exists("{0}/{1}".format(tempDir, CELLID)):
                         os.mkdir("{0}/{1}".format(tempDir, CELLID))
-                    if not os.path.exists("{0}/{1}/{2}.json".format(tempDir, CELLID, Object.acronym)):
+                    if not os.path.exists("{0}/{1}/{2}.json".format(tempDir, CELLID, Object.acronym)) or isUpdate:
                         with open("{0}/{1}/{2}.json".format(tempDir, CELLID, Object.acronym), 'w') as file:
                             file.write(json.dumps(objet))
                             file.close()
                     elif isResume:
                         pass
-                    elif isUpdate:
-                        with open("{0}/{1}/{2}.json".format(tempDir, CELLID, Object.acronym), 'w') as file:
-                            file.write(json.dumps(objet))
-                            file.close()
                 except OSError as err:
                     print(err)
                     pass
