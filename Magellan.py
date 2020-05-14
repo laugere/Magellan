@@ -66,7 +66,7 @@ def sendObjectToSql(attributes, objects, user, password, host, port, database):
                 cursor.execute(createQuery)
                 connection.commit()
             except:
-                print("la table existe déjà")
+                print("la table {0} existe déjà".format(Object.acronym))
         tableQuery = ""
         tableQuery = getAttributeSql(Object.acronym, attributes, Object.genericAttribute)
         if Object.attribute_A:
@@ -80,7 +80,7 @@ def sendObjectToSql(attributes, objects, user, password, host, port, database):
                 cursor.execute(tableQuery)
                 connection.commit()
             except:
-                print("la table existe déjà")
+                print("la table {0} existe déjà".format(Object.acronym))
 
 
 ## ## send s57
