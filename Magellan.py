@@ -119,9 +119,16 @@ def sends57ToSql(tempDir, s57Dir, objects, user, password, host, port, database)
                         os.mkdir("{0}".format(tempDir))
                     if not os.path.exists("{0}/{1}".format(tempDir, CELLID)):
                         os.mkdir("{0}/{1}".format(tempDir, CELLID))
-                    with open("{0}/{1}/{2}.json".format(tempDir, CELLID, Object.acronym), 'w') as file:
-                        file.write(json.dumps(objet))
-                        file.close()
+                    if not os.path.exists("{0}/{1}/{2}.json".format(tempDir, CELLID, Object.acronym)):
+                        with open("{0}/{1}/{2}.json".format(tempDir, CELLID, Object.acronym), 'w') as file:
+                            file.write(json.dumps(objet))
+                            file.close()
+                    elif isResume:
+                        pass
+                    elif isUpdate:
+                        with open("{0}/{1}/{2}.json".format(tempDir, CELLID, Object.acronym), 'w') as file:
+                            file.write(json.dumps(objet))
+                            file.close()
                 except OSError as err:
                     print(err)
                     pass
@@ -130,7 +137,7 @@ def sends57ToSql(tempDir, s57Dir, objects, user, password, host, port, database)
     for cell in listCells:
         for Object in objects:
             CELLID = os.path.basename(cell).split('.')[0]
-            command = "ogr2ogr -lco FID=fid -oo SPLIT_MULTIPOINT=ON -oo ADD_SOUNDG_DEPTH=ON -oo RECODE_BY_DSSI=ON -update -append -skipfailures -f PostGreSQL PG:\"host={1} user={2} password={3} dbname={4}\" \"{5}\" {6}".format("TEST", host, user, password, database, "{0}/{1}/{2}.json".format(tempDir, CELLID, Object.acronym), Object.acronym)
+            command = "ogr2ogr -lco FID=fid -oo SPLIT_MULTIPOINT=ON -oo ADD_SOUNDG_DEPTH=ON -oo RECODE_BY_DSSI=ON -update -append -skipfailures -f PostGreSQL PG:\"host={0} user={1} password={2} dbname={3}\" \"{4}\" {5}".format(host, user, password, database, "{0}/{1}/{2}.json".format(tempDir, CELLID, Object.acronym), Object.acronym)
             result = subprocess.Popen(command, cwd=envGDAL, stdout=subprocess.PIPE)
             returnedCode = result.wait()
 
@@ -170,6 +177,8 @@ argparser = argparse.ArgumentParser()
 argparser.add_argument("--initDatabase", help="Initialize Database for Magellan", action="store_true")
 argparser.add_argument("--csvAttribute", default="GDALCSV\\s57attributes.csv", help="Change s57attribute.csv path")
 argparser.add_argument("--csvObjectClasses", default="GDALCSV\\s57objectclasses.csv", help="Change s57objectClasses path")
+argparser.add_argument("--update", help="update overwrite temp and data into the database for updating cells", action="store_true")
+argparser.add_argument("--resume", help="Resume installation of the cells", action="store_true")
 argparser.add_argument("tempDir", help="temp path")
 argparser.add_argument("s57Dir", help="s57 chart path")
 argparser.add_argument("userName", help="Username of the database")
@@ -190,6 +199,9 @@ password = args.password
 host = args.host
 port = args.port
 nameDb = args.nameDb
+
+isUpdate = args.update
+isResume = args.resume
 
 attributeCsv = getObjectFromCsv(csvAttribute, "attribute")
 objectClassCsv = getObjectFromCsv(csvObjectClasses, "objectClasse")
