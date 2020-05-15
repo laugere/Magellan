@@ -106,30 +106,30 @@ def sends57ToSql(tempDir, s57Dir, objects, user, password, host, port, database)
         for Object in objects:
             command = "ogr2ogr -overwrite -f GeoJSON -oo SPLIT_MULTIPOINT=ON -oo ADD_SOUNDG_DEPTH=ON -oo RECODE_BY_DSSI=ON \"/vsistdout/\" \"{0}\" {1}".format(cell, Object.acronym)
             CELLID = os.path.basename(cell).split('.')[0]
-            result = subprocess.Popen(command, cwd=envGDAL, stdout=subprocess.PIPE)
-            resultJson = result.communicate()[0]
-            result.wait()
-            if resultJson != b'':
-                try:
-                    objet = json.loads(resultJson)
-                    for feature in objet['features']:
-                        properties = feature['properties']
-                        properties.update(CELLID = CELLID)
-                    if not os.path.exists("{0}".format(tempDir)):
-                        os.mkdir("{0}".format(tempDir))
-                    if not os.path.exists("{0}/{1}".format(tempDir, CELLID)):
-                        os.mkdir("{0}/{1}".format(tempDir, CELLID))
-                    if not os.path.exists("{0}/{1}/{2}.json".format(tempDir, CELLID, Object.acronym)) or isUpdate:
+            if not os.path.exists("{0}/{1}/{2}.json".format(tempDir, CELLID, Object.acronym)) or isUpdate:
+                result = subprocess.Popen(command, cwd=envGDAL, stdout=subprocess.PIPE)
+                resultJson = result.communicate()[0]
+                result.wait()
+                if resultJson != b'':
+                    try:
+                        objet = json.loads(resultJson)
+                        for feature in objet['features']:
+                            properties = feature['properties']
+                            properties.update(CELLID = CELLID)
+                        if not os.path.exists("{0}".format(tempDir)):
+                            os.mkdir("{0}".format(tempDir))
+                        if not os.path.exists("{0}/{1}".format(tempDir, CELLID)):
+                            os.mkdir("{0}/{1}".format(tempDir, CELLID))
                         with open("{0}/{1}/{2}.json".format(tempDir, CELLID, Object.acronym), 'w') as file:
                             file.write(json.dumps(objet))
                             file.close()
-                    elif isResume:
+                    except OSError as err:
+                        print(err)
                         pass
-                except OSError as err:
-                    print(err)
-                    pass
-                except:
-                    pass
+                    except:
+                        pass
+            elif isResume:
+                pass
     for cell in listCells:
         for Object in objects:
             CELLID = os.path.basename(cell).split('.')[0]
