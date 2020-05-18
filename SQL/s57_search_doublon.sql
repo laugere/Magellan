@@ -1,7 +1,7 @@
 DROP FUNCTION s57_search_doublon();
 CREATE OR REPLACE FUNCTION s57_search_doublon(
 )
-RETURNS table(schemaname text, tablename text, CELLID text, LNAM text, wkb_geometry geometry)
+RETURNS table(schemaname text, tablename text, CELLID text, LNAM text, wkb_geometry geometry, SCACEL int)
 AS $$
 declare
 	COUNTER int;
@@ -22,11 +22,11 @@ FOR schemaname,tablename IN
 					IF COUNTER > 1 THEN
 						FOR i IN 1..COUNTER
 						LOOP
-							query := format('SELECT "CELLID", "LNAM", "wkb_geometry" FROM %I.%I AS t WHERE "LNAM" = ''%s''',
+							query := format('SELECT "CELLID", "LNAM", "wkb_geometry", SUBSTRING("CELLID", 3, 3) FROM %I.%I AS t WHERE "LNAM" = ''%s''',
 											schemaname,
 										tablename,
 									  LNAM);
-							EXECUTE query into CELLID, LNAM, wkb_geometry;
+							EXECUTE query into CELLID, LNAM, wkb_geometry, SCACEL;
 							RETURN NEXT;
 						END LOOP;
 				END IF;

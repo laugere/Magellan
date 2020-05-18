@@ -102,7 +102,6 @@ def sends57ToSql(tempDir, s57Dir, objects, user, password, host, port, database)
             except OSError as err:
                 print(err)
                 pass
-    '''
     for cell in listCells:
         for Object in objects:
             command = "ogr2ogr -overwrite -f GeoJSON -oo SPLIT_MULTIPOINT=ON -oo ADD_SOUNDG_DEPTH=ON -oo RECODE_BY_DSSI=ON \"/vsistdout/\" \"{0}\" {1}".format(cell, Object.acronym)
@@ -131,7 +130,6 @@ def sends57ToSql(tempDir, s57Dir, objects, user, password, host, port, database)
                         pass
             elif isResume:
                 pass
-    '''
     for cell in listCells:
         print("extract cell {0}".format(cell))
         for Object in objects:
