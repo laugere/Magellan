@@ -26,7 +26,7 @@ FOR schemaname,tablename IN
 											schemaname,
 										tablename,
 									  LNAM);
-							EXECUTE query into CELLID, LNAM;
+							EXECUTE query into CELLID, LNAM, wkb_geometry;
 							RETURN NEXT;
 						END LOOP;
 				END IF;
