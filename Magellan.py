@@ -132,13 +132,17 @@ def sends57ToSql(tempDir, s57Dir, objects, user, password, host, port, database)
                 pass
     for cell in listCells:
         print("extract cell {0}".format(cell))
+        i = 0
         for Object in objects:
             CELLID = os.path.basename(cell).split('.')[0]
             if os.path.exists("{0}/{1}/{2}.json".format(tempDir, CELLID, Object.acronym)):
                 print("extract object {0}".format(Object.acronym))
                 command = "ogr2ogr -update -append -skipfailures -f PostGreSQL PG:\"host={0} user={1} password={2} dbname={3}\" \"{4}\" {5}".format(host, user, password, database, "{0}/{1}/{2}.json".format(tempDir, CELLID, Object.acronym), Object.acronym)
                 result = subprocess.Popen(command, cwd=envGDAL, stdout=subprocess.PIPE)
-                returnedCode = result.wait()
+                i += 1
+                if(i >= 30):
+                    result.wait()
+                    i = 0
 
 
 
