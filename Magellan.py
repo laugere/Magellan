@@ -4,6 +4,7 @@ import argparse
 import os
 import subprocess
 import json
+import time
 
 
 ## class
@@ -140,8 +141,9 @@ def sends57ToSql(tempDir, s57Dir, objects, user, password, host, port, database)
                 command = "ogr2ogr -update -append -skipfailures -f PostGreSQL PG:\"host={0} user={1} password={2} dbname={3}\" \"{4}\" {5}".format(host, user, password, database, "{0}/{1}/{2}.json".format(tempDir, CELLID, Object.acronym), Object.acronym)
                 result = subprocess.Popen(command, cwd=envGDAL, stdout=subprocess.PIPE)
                 i += 1
-                if(i >= 30):
+                if(i >= 5):
                     result.wait()
+                    time.sleep(2000)
                     i = 0
 
 
