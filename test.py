@@ -68,11 +68,32 @@ for i in range(chartFile.GetLayerCount()):
         print("Nombre d'objets dans la couche : {0}".format(layer.GetFeatureCount()))
         defn = layer.GetLayerDefn()
         for j in range(layer.GetFeatureCount()):
-            sqlRequest = "INSERT INTO public.\"{0}\" VALUE".format(layer.GetName(),)
+            listObject = []
             print("{0} -------------------------------------------------------".format(j))
             feature = layer.GetNextFeature()
-            print("GEOM : {0}".format(feature.geometry()))
+            #print("GEOM : {0}".format(feature.geometry()))
+            listObject.append(["GEOM", str(feature.geometry())])
             for n in range(defn.GetFieldCount()):
                 layerDefn = defn.GetFieldDefn(n)
-                print("{0} : {1}".format(layerDefn.GetName(), feature.GetField(layerDefn.GetName())))
-                
+                #print("{0} : {1}".format(layerDefn.GetName(), feature.GetField(layerDefn.GetName())))
+                listObject.append([layerDefn.GetName(), feature.GetField(layerDefn.GetName())])
+            sqlRequest = "INSERT INTO public.\"{0}\" (".format(layer.GetName(),)
+            i = 0
+            for s57Object in listObject:
+                if i == 0:
+                    sqlRequest += str(s57Object[0])
+                else:
+                    sqlRequest += ', ' + str(s57Object[0])
+                i += 1
+            sqlRequest += ") VALUE ("
+            i = 0
+            for s57Object in listObject:
+                if i == 0:
+                    sqlRequest += str(s57Object[1])
+                else:
+                    sqlRequest += ', ' + str(s57Object[1])
+                i += 1
+            sqlRequest += ");"
+            print(sqlRequest)
+            #print(listObject)
+
