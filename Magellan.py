@@ -87,6 +87,8 @@ def sendObjectToSql(attributes, objects, user, password, host, port, database):
 
 ## ## send s57
 def sends57ToSql(tempDir, s57Dir, objects, user, password, host, port, database):
+    connection = psycopg2.connect(user = user, password = password, host = host, port = port, database = database)
+    cursor = connection.cursor()
     listCells = []
     envGDAL = os.environ["GDAL"]
     for _dir, _file, _filenames in os.walk(s57Dir):
@@ -155,9 +157,11 @@ def sends57ToSql(tempDir, s57Dir, objects, user, password, host, port, database)
                                 sqlRequest += ', ' + 'NULL'
                         i += 1
                     sqlRequest += ");"
-                    file = open("requestTemp.sql", 'a')
-                    file.write(str(sqlRequest.encode("utf-8",'replace').decode("utf-8",'surrogateescape')))
-                    file.close()
+                    try:
+                        cursor.execute(tableQuery)
+                        connection.commit()
+                    except:
+                        print("Erreur dans l'insertion des données de la carte {0}".format(CELLID))
     print("FINI !!!!!")
 
 
