@@ -644,6 +644,8 @@
 
 100012,Magellan object CELLID,CELLID,S,F
 
+100013,Magellan object FIDS,FIDS,S,F
+
 100020,Magellan object DSID_EXPP,DSID_EXPP,E,F
 
 100021,Magellan object DSID_INTU,DSID_INTU,E,F

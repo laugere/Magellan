@@ -10,7 +10,7 @@ class objectClasse:
         self.code = code
         self.objectClass = objectClass
         self.acronym = acronym
-        self.genericAttribute = "CELLID;fid;RCID;PRIM;GRUP;OBJL;RVER;AGEN;FIDN;FIDS;LNAM;LNAM_REFS;FFPT_RIND;"
+        self.genericAttribute = "CELLID;FIDS;RCID;PRIM;GRUP;OBJL;RVER;AGEN;FIDN;FIDS;LNAM;LNAM_REFS;FFPT_RIND;"
         self.attribute_A = attribute_A
         self.attribute_B = attribute_B
         self.attribute_C = attribute_C
@@ -56,6 +56,7 @@ s57srcFile = os.path.join("D:", "Charts", "finish", "ENC_BE", "ENC_ROOT", "BE", 
 csvObjectClassePath = os.path.join("D:", "GDALCSV", "magellanS57objectClasses.csv")
 chartFile = osgeo.ogr.Open(s57srcFile)
 s57ObjectClasses = getObjectFromCsv(csvObjectClassePath,"objectClasse")
+CELLID = open(s57srcFile)
 
 for i in range(chartFile.GetLayerCount()):
     layer = chartFile.GetLayer(i)
@@ -64,36 +65,35 @@ for i in range(chartFile.GetLayerCount()):
         if s57ObjectClasse.acronym == layer.GetName():
             isInList = True
     if isInList:
-        print(" ------------------------------------------ Couche : {0}".format(layer.GetName()))
-        print("Nombre d'objets dans la couche : {0}".format(layer.GetFeatureCount()))
         defn = layer.GetLayerDefn()
         for j in range(layer.GetFeatureCount()):
             listObject = []
-            print("{0} -------------------------------------------------------".format(j))
             feature = layer.GetNextFeature()
             #print("GEOM : {0}".format(feature.geometry()))
-            listObject.append(["GEOM", str(feature.geometry())])
+            geom = feature.geometry()
+            listObject.append(["CELLID", ])
+            if(geom != None):
+                listObject.append(["wkb_geometry", feature.geometry()])
             for n in range(defn.GetFieldCount()):
                 layerDefn = defn.GetFieldDefn(n)
                 #print("{0} : {1}".format(layerDefn.GetName(), feature.GetField(layerDefn.GetName())))
                 listObject.append([layerDefn.GetName(), feature.GetField(layerDefn.GetName())])
-            sqlRequest = "INSERT INTO public.\"{0}\" (".format(layer.GetName(),)
+            sqlRequest = "INSERT INTO \"{0}\" (".format(layer.GetName(),)
             i = 0
             for s57Object in listObject:
                 if i == 0:
-                    sqlRequest += str(s57Object[0])
+                    sqlRequest += '\"' + str(s57Object[0]) + '\"'
                 else:
-                    sqlRequest += ', ' + str(s57Object[0])
+                    sqlRequest += ', ' + '\"' + str(s57Object[0]) + '\"'
                 i += 1
-            sqlRequest += ") VALUE ("
+            sqlRequest += ") VALUES ("
             i = 0
             for s57Object in listObject:
-                if i == 0:
-                    sqlRequest += str(s57Object[1])
+                if i == 0: 
+                    sqlRequest += '\'' + str(s57Object[1]) + '\''
                 else:
-                    sqlRequest += ', ' + str(s57Object[1])
+                    sqlRequest += ', ' + '\'' + str(s57Object[1]) + '\''
                 i += 1
             sqlRequest += ");"
             print(sqlRequest)
-            #print(listObject)
 

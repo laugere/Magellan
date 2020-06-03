@@ -1,10 +1,11 @@
 import csv
 import psycopg2
 import argparse
-import os
+import os.path
 import subprocess
 import json
 import time
+import osgeo.ogr
 
 
 ## class
@@ -104,47 +105,60 @@ def sends57ToSql(tempDir, s57Dir, objects, user, password, host, port, database)
                 print(err)
                 pass
     for cell in listCells:
-        for Object in objects:
-            command = "ogr2ogr -overwrite -f GeoJSON -oo SPLIT_MULTIPOINT=ON -oo ADD_SOUNDG_DEPTH=ON -oo RECODE_BY_DSSI=ON \"/vsistdout/\" \"{0}\" {1}".format(cell, Object.acronym)
-            CELLID = os.path.basename(cell).split('.')[0]
-            if not os.path.exists("{0}/{1}/{2}.json".format(tempDir, CELLID, Object.acronym)) or isUpdate:
-                result = subprocess.Popen(command, cwd=envGDAL, stdout=subprocess.PIPE)
-                resultJson = result.communicate()[0]
-                result.wait()
-                if resultJson != b'':
-                    try:
-                        objet = json.loads(resultJson)
-                        for feature in objet['features']:
-                            properties = feature['properties']
-                            properties.update(CELLID = CELLID)
-                        if not os.path.exists("{0}".format(tempDir)):
-                            os.mkdir("{0}".format(tempDir))
-                        if not os.path.exists("{0}/{1}".format(tempDir, CELLID)):
-                            os.mkdir("{0}/{1}".format(tempDir, CELLID))
-                        with open("{0}/{1}/{2}.json".format(tempDir, CELLID, Object.acronym), 'w') as file:
-                            file.write(json.dumps(objet))
-                            file.close()
-                    except OSError as err:
-                        print(err)
-                        pass
-                    except:
-                        pass
-            elif isResume:
-                pass
-    for cell in listCells:
-        print("extract cell {0}".format(cell))
-        i = 0
-        for Object in objects:
-            CELLID = os.path.basename(cell).split('.')[0]
-            if os.path.exists("{0}/{1}/{2}.json".format(tempDir, CELLID, Object.acronym)):
-                print("extract object {0}".format(Object.acronym))
-                command = "ogr2ogr -update -append -skipfailures -f PostGreSQL PG:\"host={0} user={1} password={2} dbname={3}\" \"{4}\" {5}".format(host, user, password, database, "{0}/{1}/{2}.json".format(tempDir, CELLID, Object.acronym), Object.acronym)
-                result = subprocess.Popen(command, cwd=envGDAL, stdout=subprocess.PIPE)
-                i += 1
-                if(i >= 5):
-                    result.wait()
-                    time.sleep(2000)
+        CELLID = os.path.basename(cell).split('.')[0]
+        chartFile = osgeo.ogr.Open(cell)
+        s57ObjectClasses = objects
+        for i in range(chartFile.GetLayerCount()):
+            layer = chartFile.GetLayer(i)
+            isInList = False
+            for s57ObjectClasse in s57ObjectClasses:
+                if s57ObjectClasse.acronym == layer.GetName():
+                    isInList = True
+            if isInList:
+                defn = layer.GetLayerDefn()
+                for j in range(layer.GetFeatureCount()):
+                    listObject = []
+                    feature = layer.GetNextFeature()
+                    #print("GEOM : {0}".format(feature.geometry()))
+                    geom = feature.geometry()
+                    listObject.append(["CELLID", CELLID])
+                    if(geom != None):
+                        listObject.append(["wkb_geometry", feature.geometry()])
+                    for n in range(defn.GetFieldCount()):
+                        layerDefn = defn.GetFieldDefn(n)
+                        #print("{0} : {1}".format(layerDefn.GetName(), feature.GetField(layerDefn.GetName())))
+                        listObject.append([layerDefn.GetName(), feature.GetField(layerDefn.GetName())])
+                    sqlRequest = "INSERT INTO \"{0}\" (".format(layer.GetName(),)
                     i = 0
+                    for s57Object in listObject:
+                        if i == 0:
+                            sqlRequest += '\"' + str(s57Object[0]) + '\"'
+                        else:
+                            sqlRequest += ', ' + '\"' + str(s57Object[0]) + '\"'
+                        i += 1
+                    sqlRequest += ") VALUES ("
+                    i = 0
+                    for s57Object in listObject:
+                        if i == 0:
+                            if str(s57Object[0]) ==  "LNAM_REFS" or str(s57Object[0]) ==  "FFPT_RIND":
+                                sqlRequest += '\'' + "1:" + s57Object[1].replace('[', '').replace('\'', '').replace(']','') + '\''
+                            elif str(s57Object[1]) != "None":
+                                sqlRequest += '\'' + str(s57Object[1]).replace('[', '').replace('\'', '').replace(']','') + '\''
+                            else:
+                                sqlRequest += 'NULL'
+                        else:
+                            if str(s57Object[0]) ==  "LNAM_REFS" or str(s57Object[0]) ==  "FFPT_RIND":
+                                sqlRequest += '\'' + "1:" + str(s57Object[1]).replace('[', '').replace('\'', '').replace(']','') + '\''
+                            elif str(s57Object[1]) != "None":
+                                sqlRequest += ', ' + '\'' + str(s57Object[1]).replace('[', '').replace('\'', '').replace(']','') + '\''
+                            else:
+                                sqlRequest += ', ' + 'NULL'
+                        i += 1
+                    sqlRequest += ");"
+                    file = open("requestTemp.sql", 'a')
+                    file.write(str(sqlRequest.encode("utf-8",'replace').decode("utf-8",'surrogateescape')))
+                    file.close()
+    print("FINI !!!!!")
 
 
 
