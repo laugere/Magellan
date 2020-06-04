@@ -101,7 +101,6 @@ def sends57ToSql(tempDir, s57Dir, attributes, objects, user, password, host, por
         chartFile = osgeo.ogr.Open(cell)
         s57ObjectClasses = objects
         s57Attributes = attributes
-        sqlRequest = None
         for i in range(chartFile.GetLayerCount()):
             layer = chartFile.GetLayer(i)
             for s57ObjectClasse in s57ObjectClasses:
@@ -122,7 +121,8 @@ def sends57ToSql(tempDir, s57Dir, attributes, objects, user, password, host, por
                                 listObject.append(["DEPTH", None])
                                 for i in range(geom.GetGeometryCount()):
                                     point = geom.GetGeometryRef(i)
-                                    sqlRequest += createSQLQuery(listObject, layer.GetName(), point.GetZ())
+                                    listObject[-1] = ["DEPTH", point.GetZ()]
+                                    sqlRequest += createSQLQuery(listObject, layer.GetName())
                             else:
                                 listObject.append(["wkb_geometry", geom])
                                 for n in range(defn.GetFieldCount()):
@@ -131,6 +131,13 @@ def sends57ToSql(tempDir, s57Dir, attributes, objects, user, password, host, por
                                         if s57Attribute.acronym == layerDefn.GetName():
                                             listObject.append([layerDefn.GetName(), feature.GetField(layerDefn.GetName())])
                                 sqlRequest = createSQLQuery(listObject, layer.GetName())
+                        else:
+                            for n in range(defn.GetFieldCount()):
+                                layerDefn = defn.GetFieldDefn(n)
+                                for s57Attribute in s57Attributes:
+                                    if s57Attribute.acronym == layerDefn.GetName():
+                                        listObject.append([layerDefn.GetName(), feature.GetField(layerDefn.GetName())])
+                            sqlRequest = createSQLQuery(listObject, layer.GetName())
                         sqlRequest = sqlRequest.encode("utf-8", "replace").decode("utf-8", "replace")
                         cursor.execute(sqlRequest)
                         connection.commit()
@@ -138,8 +145,7 @@ def sends57ToSql(tempDir, s57Dir, attributes, objects, user, password, host, por
 
 
 
-def createSQLQuery(listObject, layerName, depth=None):
-    listObject[-1] = ["DEPTH", depth]
+def createSQLQuery(listObject, layerName):
     sqlRequest = "INSERT INTO \"{0}\" (".format(layerName)
     i = 0
     for s57Object in listObject:
