@@ -111,14 +111,12 @@ def sends57ToSql(tempDir, s57Dir, attributes, objects, user, password, host, por
                         feature = layer.GetNextFeature()
                         geom = feature.geometry()
                         listObject.append(["CELLID", CELLID])
-                        if geom != None:
+                        if geom.GetGeometryName() == "MULTIPOINT":
+                            for i in range(geom.GetGeometryCount()):
+                                point = geom.GetGeometryRef(i)
+                                print(point.GetZ())
+                        elif geom != None:
                             listObject.append(["wkb_geometry", geom])
-                        if layer.GetName() == "SOUNDG":
-                            try:
-                                print(layer.GetName())
-                                print(geom.GetZ())
-                            except:
-                                pass
                         for n in range(defn.GetFieldCount()):
                             layerDefn = defn.GetFieldDefn(n)
                             for s57Attribute in s57Attributes:
@@ -129,9 +127,9 @@ def sends57ToSql(tempDir, s57Dir, attributes, objects, user, password, host, por
                         for s57Object in listObject:
                             if i == 0:
                                 sqlRequest += '\"' + str(s57Object[0]) + '\"'
+                                i += 1
                             else:
                                 sqlRequest += ', ' + '\"' + str(s57Object[0]) + '\"'
-                            i += 1
                         sqlRequest += ") VALUES ("
                         i = 0
                         for s57Object in listObject:
@@ -140,12 +138,12 @@ def sends57ToSql(tempDir, s57Dir, attributes, objects, user, password, host, por
                                     sqlRequest += '\'' + str(s57Object[1]).replace('[', '').replace('\'', '').replace(']','') + '\''
                                 else:
                                     sqlRequest += 'NULL'
+                                i += 1
                             else:
                                 if str(s57Object[1]) != "None":
                                     sqlRequest += ', ' + '\'' + str(s57Object[1]).replace('[', '').replace('\'', '').replace(']','') + '\''
                                 else:
                                     sqlRequest += ', ' + 'NULL'
-                            i += 1
                         sqlRequest += ");"
                         #sqlRequest = sqlRequest.encode("utf-8", "replace").decode("utf-8", "replace")
                         #cursor.execute(sqlRequest)
