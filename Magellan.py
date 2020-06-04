@@ -111,8 +111,14 @@ def sends57ToSql(tempDir, s57Dir, attributes, objects, user, password, host, por
                         feature = layer.GetNextFeature()
                         geom = feature.geometry()
                         listObject.append(["CELLID", CELLID])
-                        if(geom != None):
-                            listObject.append(["wkb_geometry", feature.geometry()])
+                        if geom != None:
+                            listObject.append(["wkb_geometry", geom])
+                        if layer.GetName() == "SOUNDG":
+                            try:
+                                print(layer.GetName())
+                                print(geom.GetZ())
+                            except:
+                                pass
                         for n in range(defn.GetFieldCount()):
                             layerDefn = defn.GetFieldDefn(n)
                             for s57Attribute in s57Attributes:
@@ -141,9 +147,9 @@ def sends57ToSql(tempDir, s57Dir, attributes, objects, user, password, host, por
                                     sqlRequest += ', ' + 'NULL'
                             i += 1
                         sqlRequest += ");"
-                        sqlRequest = sqlRequest.encode("utf-8", "replace").decode("utf-8", "replace")
-                        cursor.execute(sqlRequest)
-                        connection.commit()
+                        #sqlRequest = sqlRequest.encode("utf-8", "replace").decode("utf-8", "replace")
+                        #cursor.execute(sqlRequest)
+                        #connection.commit()
     print("FINI !!!!!")
 
 
