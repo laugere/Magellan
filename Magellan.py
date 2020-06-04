@@ -101,6 +101,7 @@ def sends57ToSql(tempDir, s57Dir, attributes, objects, user, password, host, por
         chartFile = osgeo.ogr.Open(cell)
         s57ObjectClasses = objects
         s57Attributes = attributes
+        sqlRequest = None
         for i in range(chartFile.GetLayerCount()):
             layer = chartFile.GetLayer(i)
             for s57ObjectClasse in s57ObjectClasses:
@@ -111,44 +112,58 @@ def sends57ToSql(tempDir, s57Dir, attributes, objects, user, password, host, por
                         feature = layer.GetNextFeature()
                         geom = feature.geometry()
                         listObject.append(["CELLID", CELLID])
-                        if geom.GetGeometryName() == "MULTIPOINT":
-                            for i in range(geom.GetGeometryCount()):
-                                point = geom.GetGeometryRef(i)
-                                print(point.GetZ())
-                        elif geom != None:
-                            listObject.append(["wkb_geometry", geom])
-                        for n in range(defn.GetFieldCount()):
-                            layerDefn = defn.GetFieldDefn(n)
-                            for s57Attribute in s57Attributes:
-                                if s57Attribute.acronym == layerDefn.GetName():
-                                    listObject.append([layerDefn.GetName(), feature.GetField(layerDefn.GetName())])
-                        sqlRequest = "INSERT INTO \"{0}\" (".format(layer.GetName(),)
-                        i = 0
-                        for s57Object in listObject:
-                            if i == 0:
-                                sqlRequest += '\"' + str(s57Object[0]) + '\"'
-                                i += 1
+                        if geom != None:
+                            if geom.GetGeometryName() == "MULTIPOINT":
+                                for n in range(defn.GetFieldCount()):
+                                    layerDefn = defn.GetFieldDefn(n)
+                                    for s57Attribute in s57Attributes:
+                                        if s57Attribute.acronym == layerDefn.GetName():
+                                            listObject.append([layerDefn.GetName(), feature.GetField(layerDefn.GetName())])
+                                listObject.append(["DEPTH", None])
+                                for i in range(geom.GetGeometryCount()):
+                                    point = geom.GetGeometryRef(i)
+                                    sqlRequest += createSQLQuery(listObject, layer.GetName(), point.GetZ())
                             else:
-                                sqlRequest += ', ' + '\"' + str(s57Object[0]) + '\"'
-                        sqlRequest += ") VALUES ("
-                        i = 0
-                        for s57Object in listObject:
-                            if i == 0:
-                                if str(s57Object[1]) != "None":
-                                    sqlRequest += '\'' + str(s57Object[1]).replace('[', '').replace('\'', '').replace(']','') + '\''
-                                else:
-                                    sqlRequest += 'NULL'
-                                i += 1
-                            else:
-                                if str(s57Object[1]) != "None":
-                                    sqlRequest += ', ' + '\'' + str(s57Object[1]).replace('[', '').replace('\'', '').replace(']','') + '\''
-                                else:
-                                    sqlRequest += ', ' + 'NULL'
-                        sqlRequest += ");"
-                        #sqlRequest = sqlRequest.encode("utf-8", "replace").decode("utf-8", "replace")
-                        #cursor.execute(sqlRequest)
-                        #connection.commit()
+                                listObject.append(["wkb_geometry", geom])
+                                for n in range(defn.GetFieldCount()):
+                                    layerDefn = defn.GetFieldDefn(n)
+                                    for s57Attribute in s57Attributes:
+                                        if s57Attribute.acronym == layerDefn.GetName():
+                                            listObject.append([layerDefn.GetName(), feature.GetField(layerDefn.GetName())])
+                                sqlRequest = createSQLQuery(listObject, layer.GetName())
+                        sqlRequest = sqlRequest.encode("utf-8", "replace").decode("utf-8", "replace")
+                        cursor.execute(sqlRequest)
+                        connection.commit()
     print("FINI !!!!!")
+
+
+
+def createSQLQuery(listObject, layerName, depth=None):
+    listObject[-1] = ["DEPTH", depth]
+    sqlRequest = "INSERT INTO \"{0}\" (".format(layerName)
+    i = 0
+    for s57Object in listObject:
+        if i == 0:
+            sqlRequest += '\"' + str(s57Object[0]) + '\"'
+            i += 1
+        else:
+            sqlRequest += ', ' + '\"' + str(s57Object[0]) + '\"'
+    sqlRequest += ") VALUES ("
+    i = 0
+    for s57Object in listObject:
+        if i == 0:
+            if str(s57Object[1]) != "None":
+                sqlRequest += '\'' + str(s57Object[1]).replace('[', '').replace('\'', '').replace(']','') + '\''
+            else:
+                sqlRequest += 'NULL'
+            i += 1
+        else:
+            if str(s57Object[1]) != "None":
+                sqlRequest += ', ' + '\'' + str(s57Object[1]).replace('[', '').replace('\'', '').replace(']','') + '\''
+            else:
+                sqlRequest += ', ' + 'NULL'
+    sqlRequest += ");"
+    return sqlRequest
 
 
 
