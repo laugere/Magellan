@@ -15,10 +15,7 @@ class objectClasse:
         self.code = code
         self.objectClass = objectClass
         self.acronym = acronym
-        self.genericAttribute = "CELLID;fid;RCID;PRIM;GRUP;OBJL;RVER;AGEN;FIDN;FIDS;LNAM;LNAM_REFS;FFPT_RIND;"
-        self.attribute_A = attribute_A
-        self.attribute_B = attribute_B
-        self.attribute_C = attribute_C
+        self.attributes = "CELLID;fid;RCID;PRIM;GRUP;OBJL;RVER;AGEN;FIDN;FIDS;LNAM;LNAM_REFS;FFPT_RIND;" + attribute_A + attribute_B + attribute_C
         self.classe = classe
         self.primitives = primitives
 
@@ -70,27 +67,20 @@ def sendObjectToSql(attributes, objects, user, password, host, port, database):
             except:
                 print("la table {0} existe déjà".format(Object.acronym))
         tableQuery = ""
-        tableQuery = getAttributeSql(Object.acronym, attributes, Object.genericAttribute)
-        if Object.attribute_A:
-            tableQuery = tableQuery + getAttributeSql(Object.acronym, attributes, Object.attribute_A)
-        if Object.attribute_B:
-            tableQuery = tableQuery + getAttributeSql(Object.acronym, attributes, Object.attribute_B)
-        if Object.attribute_C:
-            tableQuery = tableQuery + getAttributeSql(Object.acronym, attributes, Object.attribute_C)
+        if Object.attributes:
+            tableQuery = tableQuery + getAttributeSql(Object.acronym, attributes, Object.attributes)
         if tableQuery != "":
             try:
                 cursor.execute(tableQuery)
                 connection.commit()
             except:
-                print("la table {0} existe déjà".format(Object.acronym))
-
+                print("la table {0} est déjà rempli".format(Object.acronym))
 
 ## ## send s57
-def sends57ToSql(tempDir, s57Dir, objects, user, password, host, port, database):
+def sends57ToSql(tempDir, s57Dir, attributes, objects, user, password, host, port, database):
     connection = psycopg2.connect(user = user, password = password, host = host, port = port, database = database)
     cursor = connection.cursor()
     listCells = []
-    envGDAL = os.environ["GDAL"]
     for _dir, _file, _filenames in os.walk(s57Dir):
         for _files in sorted(_filenames):
             _name = os.path.splitext(_files)[0]
@@ -110,58 +100,50 @@ def sends57ToSql(tempDir, s57Dir, objects, user, password, host, port, database)
         CELLID = os.path.basename(cell).split('.')[0]
         chartFile = osgeo.ogr.Open(cell)
         s57ObjectClasses = objects
+        s57Attributes = attributes
         for i in range(chartFile.GetLayerCount()):
             layer = chartFile.GetLayer(i)
-            isInList = False
             for s57ObjectClasse in s57ObjectClasses:
                 if s57ObjectClasse.acronym == layer.GetName():
-                    isInList = True
-            if isInList:
-                defn = layer.GetLayerDefn()
-                for j in range(layer.GetFeatureCount()):
-                    listObject = []
-                    feature = layer.GetNextFeature()
-                    #print("GEOM : {0}".format(feature.geometry()))
-                    geom = feature.geometry()
-                    listObject.append(["CELLID", CELLID])
-                    if(geom != None):
-                        listObject.append(["wkb_geometry", feature.geometry()])
-                    for n in range(defn.GetFieldCount()):
-                        layerDefn = defn.GetFieldDefn(n)
-                        #print("{0} : {1}".format(layerDefn.GetName(), feature.GetField(layerDefn.GetName())))
-                        listObject.append([layerDefn.GetName(), feature.GetField(layerDefn.GetName())])
-                    sqlRequest = "INSERT INTO \"{0}\" (".format(layer.GetName(),)
-                    i = 0
-                    for s57Object in listObject:
-                        if i == 0:
-                            sqlRequest += '\"' + str(s57Object[0]) + '\"'
-                        else:
-                            sqlRequest += ', ' + '\"' + str(s57Object[0]) + '\"'
-                        i += 1
-                    sqlRequest += ") VALUES ("
-                    i = 0
-                    for s57Object in listObject:
-                        if i == 0:
-                            if str(s57Object[0]) ==  "LNAM_REFS" or str(s57Object[0]) ==  "FFPT_RIND":
-                                sqlRequest += '\'' + "1:" + s57Object[1].replace('[', '').replace('\'', '').replace(']','') + '\''
-                            elif str(s57Object[1]) != "None":
-                                sqlRequest += '\'' + str(s57Object[1]).replace('[', '').replace('\'', '').replace(']','') + '\''
+                    defn = layer.GetLayerDefn()
+                    for j in range(layer.GetFeatureCount()):
+                        listObject = []
+                        feature = layer.GetNextFeature()
+                        geom = feature.geometry()
+                        listObject.append(["CELLID", CELLID])
+                        if(geom != None):
+                            listObject.append(["wkb_geometry", feature.geometry()])
+                        for n in range(defn.GetFieldCount()):
+                            layerDefn = defn.GetFieldDefn(n)
+                            for s57Attribute in s57Attributes:
+                                if s57Attribute.acronym == layerDefn.GetName():
+                                    listObject.append([layerDefn.GetName(), feature.GetField(layerDefn.GetName())])
+                        sqlRequest = "INSERT INTO \"{0}\" (".format(layer.GetName(),)
+                        i = 0
+                        for s57Object in listObject:
+                            if i == 0:
+                                sqlRequest += '\"' + str(s57Object[0]) + '\"'
                             else:
-                                sqlRequest += 'NULL'
-                        else:
-                            if str(s57Object[0]) ==  "LNAM_REFS" or str(s57Object[0]) ==  "FFPT_RIND":
-                                sqlRequest += '\'' + "1:" + str(s57Object[1]).replace('[', '').replace('\'', '').replace(']','') + '\''
-                            elif str(s57Object[1]) != "None":
-                                sqlRequest += ', ' + '\'' + str(s57Object[1]).replace('[', '').replace('\'', '').replace(']','') + '\''
+                                sqlRequest += ', ' + '\"' + str(s57Object[0]) + '\"'
+                            i += 1
+                        sqlRequest += ") VALUES ("
+                        i = 0
+                        for s57Object in listObject:
+                            if i == 0:
+                                if str(s57Object[1]) != "None":
+                                    sqlRequest += '\'' + str(s57Object[1]).replace('[', '').replace('\'', '').replace(']','') + '\''
+                                else:
+                                    sqlRequest += 'NULL'
                             else:
-                                sqlRequest += ', ' + 'NULL'
-                        i += 1
-                    sqlRequest += ");"
-                    try:
-                        cursor.execute(tableQuery)
+                                if str(s57Object[1]) != "None":
+                                    sqlRequest += ', ' + '\'' + str(s57Object[1]).replace('[', '').replace('\'', '').replace(']','') + '\''
+                                else:
+                                    sqlRequest += ', ' + 'NULL'
+                            i += 1
+                        sqlRequest += ");"
+                        sqlRequest = sqlRequest.encode("utf-8", "replace").decode("utf-8", "replace")
+                        cursor.execute(sqlRequest)
                         connection.commit()
-                    except:
-                        print("Erreur dans l'insertion des données de la carte {0}".format(CELLID))
     print("FINI !!!!!")
 
 
@@ -232,4 +214,4 @@ objectClassCsv = getObjectFromCsv(csvObjectClasses, "objectClasse")
 if args.initDatabase:
     sendObjectToSql(attributeCsv, objectClassCsv, userName, password, host, port, nameDb)
 
-sends57ToSql(tempDir, s57Dir, objectClassCsv, userName, password, host, port, nameDb)
+sends57ToSql(tempDir, s57Dir, attributeCsv, objectClassCsv, userName, password, host, port, nameDb)
