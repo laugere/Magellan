@@ -119,9 +119,11 @@ def sends57ToSql(tempDir, s57Dir, attributes, objects, user, password, host, por
                                         if s57Attribute.acronym == layerDefn.GetName():
                                             listObject.append([layerDefn.GetName(), feature.GetField(layerDefn.GetName())])
                                 listObject.append(["DEPTH", None])
+                                listObject.append(["wkb_geometry", None])
                                 for i in range(geom.GetGeometryCount()):
                                     point = geom.GetGeometryRef(i)
-                                    listObject[-1] = ["DEPTH", point.GetZ()]
+                                    listObject[-2] = ["DEPTH", point.GetZ()]
+                                    listObject[-1] = ["wkb_geometry", point]
                                     sqlRequest += createSQLQuery(listObject, layer.GetName())
                             else:
                                 listObject.append(["wkb_geometry", geom])
