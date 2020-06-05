@@ -143,11 +143,15 @@ def sends57ToSql(s57Dir, attributes, objects, user, password, host, port, databa
                         sqlRequest = sqlRequest.encode("utf-8", "replace").decode("utf-8", "replace")
                         cursor.execute(sqlRequest)
                         connection.commit()
-    print("FINI !!!!!")
+    if verbose:
+        print("Fin du process")
 
 
 
 def createSQLQuery(listObject, layerName):
+    if verbose:
+        print("Extraction de la couche {0} en cours ...".format(layerName))
+        print("Création de la requete SQL en cours ...")
     sqlRequest = "INSERT INTO \"{0}\" (".format(layerName)
     i = 0
     for s57Object in listObject:
@@ -171,6 +175,8 @@ def createSQLQuery(listObject, layerName):
             else:
                 sqlRequest += ', ' + 'NULL'
     sqlRequest += ");"
+    if verbose:
+        print("Fin de la création de la requête SQL")
     return sqlRequest
 
 
@@ -211,6 +217,7 @@ argparser.add_argument("--csvAttribute", default="GDALCSV\\s57attributes.csv", h
 argparser.add_argument("--csvObjectClasses", default="GDALCSV\\s57objectclasses.csv", help="Change s57objectClasses path")
 argparser.add_argument("--update", help="update overwrite temp and data into the database for updating cells", action="store_true")
 argparser.add_argument("--resume", help="Resume installation of the cells", action="store_true")
+argparser.add_argument("--verbose", help="Verbose for talk about the process", action="store_true")
 argparser.add_argument("s57Dir", help="s57 chart path")
 argparser.add_argument("userName", help="Username of the database")
 argparser.add_argument("password", help="Password of the database")
@@ -220,7 +227,7 @@ argparser.add_argument("nameDb", help="name of the database")
 
 args = argparser.parse_args()
 
-
+verbose = args.verbose
 csvAttribute = args.csvAttribute
 csvObjectClasses = args.csvObjectClasses
 s57Dir = args.s57Dir
