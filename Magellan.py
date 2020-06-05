@@ -77,7 +77,7 @@ def sendObjectToSql(attributes, objects, user, password, host, port, database):
                 print("la table {0} est déjà rempli".format(Object.acronym))
 
 ## ## send s57
-def sends57ToSql(tempDir, s57Dir, attributes, objects, user, password, host, port, database):
+def sends57ToSql(s57Dir, attributes, objects, user, password, host, port, database):
     connection = psycopg2.connect(user = user, password = password, host = host, port = port, database = database)
     cursor = connection.cursor()
     listCells = []
@@ -211,7 +211,6 @@ argparser.add_argument("--csvAttribute", default="GDALCSV\\s57attributes.csv", h
 argparser.add_argument("--csvObjectClasses", default="GDALCSV\\s57objectclasses.csv", help="Change s57objectClasses path")
 argparser.add_argument("--update", help="update overwrite temp and data into the database for updating cells", action="store_true")
 argparser.add_argument("--resume", help="Resume installation of the cells", action="store_true")
-argparser.add_argument("tempDir", help="temp path")
 argparser.add_argument("s57Dir", help="s57 chart path")
 argparser.add_argument("userName", help="Username of the database")
 argparser.add_argument("password", help="Password of the database")
@@ -222,7 +221,6 @@ argparser.add_argument("nameDb", help="name of the database")
 args = argparser.parse_args()
 
 
-tempDir = args.tempDir
 csvAttribute = args.csvAttribute
 csvObjectClasses = args.csvObjectClasses
 s57Dir = args.s57Dir
@@ -241,4 +239,4 @@ objectClassCsv = getObjectFromCsv(csvObjectClasses, "objectClasse")
 if args.initDatabase:
     sendObjectToSql(attributeCsv, objectClassCsv, userName, password, host, port, nameDb)
 
-sends57ToSql(tempDir, s57Dir, attributeCsv, objectClassCsv, userName, password, host, port, nameDb)
+sends57ToSql(s57Dir, attributeCsv, objectClassCsv, userName, password, host, port, nameDb)
