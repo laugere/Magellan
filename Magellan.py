@@ -15,7 +15,7 @@ class objectClasse:
         self.code = code
         self.objectClass = objectClass
         self.acronym = acronym
-        self.attributes = "CELLID;fid;RCID;PRIM;GRUP;OBJL;RVER;AGEN;FIDN;FIDS;LNAM;LNAM_REFS;FFPT_RIND;" + attribute_A + attribute_B + attribute_C
+        self.attributes = attribute_A + attribute_B + attribute_C
         self.classe = classe
         self.primitives = primitives
 
