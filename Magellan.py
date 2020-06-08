@@ -54,6 +54,19 @@ def getObjectFromCsv(csvPath, typeObject):
         return attributes
 
 
+def sendFunctionToSql(user, password, host, port, database):
+    connection = psycopg2.connect(user = user, password = password, host = host, port = port, database = database)
+    cursor = connection.cursor()
+    for _dir, _file, _filenames in os.walk(os.path.join("SQL")):
+        for _files in sorted(_filenames):
+            _name = os.path.splitext(_files)[0]
+            _ext = os.path.splitext(_files)[1]
+            function = open(_dir + os.sep + _files)
+            query = function.read()
+            cursor.execute(query)
+            connection.commit()
+            function.close()
+
 ## ## send object
 def sendObjectToSql(attributes, objects, user, password, host, port, database):
     connection = psycopg2.connect(user = user, password = password, host = host, port = port, database = database)
@@ -245,5 +258,6 @@ objectClassCsv = getObjectFromCsv(csvObjectClasses, "objectClasse")
 
 if args.initDatabase:
     sendObjectToSql(attributeCsv, objectClassCsv, userName, password, host, port, nameDb)
+    sendFunctionToSql(userName, password, host, port, nameDb)
 
 sends57ToSql(s57Dir, attributeCsv, objectClassCsv, userName, password, host, port, nameDb)

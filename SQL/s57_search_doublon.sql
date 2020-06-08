@@ -1,4 +1,3 @@
-DROP FUNCTION s57_search_doublon();
 CREATE OR REPLACE FUNCTION s57_search_doublon(
 )
 RETURNS table(schemaname text, tablename text, CELLID text, LNAM text, wkb_geometry geometry, SCACEL int)
