@@ -207,7 +207,7 @@ def getAttributeSql(objectAcronym, globalAttributes, objectAttributes):
                     sqlQuery = sqlQuery + "ALTER TABLE \"{0}\" ADD COLUMN \"{1}\" {2};".format(objectAcronym, objectAttribute, GetAttributeType(globalAttribute.attributeType))
                     break
     if objectAcronym != "DSID":
-        sqlQuery = sqlQuery + "ALTER TABLE \"{0}\" ADD PRIMARY KEY (\"CELLID\", \"LNAM\")".format(objectAcronym)
+        sqlQuery = sqlQuery + "ALTER TABLE \"{0}\" ADD PRIMARY KEY (\"CELLID\", \"LNAM\");".format(objectAcronym)
     return sqlQuery
 
 
