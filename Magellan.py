@@ -71,6 +71,9 @@ def sendFunctionToSql(user, password, host, port, database):
 def sendObjectToSql(attributes, objects, user, password, host, port, database):
     connection = psycopg2.connect(user = user, password = password, host = host, port = port, database = database)
     cursor = connection.cursor()
+    query = "CREATE EXTENSION postgis;"
+    cursor.execute(query)
+    connection.commit()
     for Object in objects:
         createQuery = "CREATE TABLE \"{0}\" (wkb_geometry geometry);".format(Object.acronym)
         if createQuery != "":
