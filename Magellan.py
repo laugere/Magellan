@@ -85,6 +85,7 @@ def sendObjectToSql(attributes, objects, user, password, host, port, database):
         tableQuery = ""
         if Object.attributes:
             tableQuery = tableQuery + getAttributeSql(Object.acronym, attributes, Object.attributes)
+        tableQuery = tableQuery + "ALTER TABLE \"{0}\" ADD FOREIGN KEY (\"CELLID\") REFERENCES \"DSID\" (CELLID);".format(Object.acronym)
         if tableQuery != "":
             try:
                 cursor.execute(tableQuery)
