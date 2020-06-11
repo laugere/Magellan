@@ -99,7 +99,7 @@ def sendObjectToSql(attributes, objects, user, password, host, port, database):
                 connection.rollback()
     for Object in objects:
         if Object.acronym != "DSID":
-            query = "ALTER TABLE \"{0}\" ADD CONSTRAINT \"fk_DSID{1}\" FOREIGN KEY (\"CELLID\") REFERENCES \"DSID\" (\"CELLID\");".format(Object.acronym, Object.acronym)
+            query = "ALTER TABLE \"{0}\" ADD CONSTRAINT \"fk_DSID_{1}\" FOREIGN KEY (\"CELLID\") REFERENCES \"DSID\" (\"CELLID\");".format(Object.acronym, Object.acronym)
             try:
                 cursor.execute(query)
                 connection.commit()
