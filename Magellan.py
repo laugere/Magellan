@@ -75,18 +75,18 @@ def sendObjectToSql(attributes, objects, user, password, host, port, database):
         query = "CREATE EXTENSION postgis;"
         cursor.execute(query)
         connection.commit()
-        cursor.close()
     except:
         print("Extension Postgis already exist in this database")
+        connection.rollback()
     for Object in objects:
         createQuery = "CREATE TABLE \"{0}\" (wkb_geometry geometry);".format(Object.acronym)
         if createQuery != "":
             try:
                 cursor.execute(createQuery)
                 connection.commit()
-                cursor.close()
             except:
                 print("la table {0} existe déjà".format(Object.acronym))
+                connection.rollback()
         tableQuery = ""
         if Object.attributes:
             tableQuery = tableQuery + getAttributeSql(Object.acronym, attributes, Object.attributes)
@@ -94,17 +94,18 @@ def sendObjectToSql(attributes, objects, user, password, host, port, database):
             try:
                 cursor.execute(tableQuery)
                 connection.commit()
-                cursor.close()
             except:
                 print("la table {0} est déjà rempli".format(Object.acronym))
+                connection.rollback()
     for Object in objects:
         if Object.acronym != "DSID":
-            query = "ALTER TABLE \"{0}\" ADD FOREIGN KEY (\"CELLID\") REFERENCES \"DSID\" (CELLID);".format(Object.acronym)
+            query = "ALTER TABLE \"{0}\" ADD CONSTRAINT \"fk_DSID{1}\" FOREIGN KEY (\"CELLID\") REFERENCES \"DSID\" (\"CELLID\");".format(Object.acronym, Object.acronym)
             try:
-                cursor.execute(tableQuery)
+                cursor.execute(query)
                 connection.commit()
             except:
-                print("Erreur avec la création de la clé étrangère")
+                print("La création de la clé étrangère n'a pas pu s'effectuer")
+
 
 ## ## send s57
 def sends57ToSql(s57Dir, attributes, objects, user, password, host, port, database):
@@ -222,6 +223,8 @@ def getAttributeSql(objectAcronym, globalAttributes, objectAttributes):
                     break
     if objectAcronym != "DSID":
         sqlQuery = sqlQuery + "ALTER TABLE \"{0}\" ADD PRIMARY KEY (\"CELLID\", \"LNAM\");".format(objectAcronym)
+    else:
+        sqlQuery = sqlQuery + "ALTER TABLE \"{0}\" ADD PRIMARY KEY (\"CELLID\");".format(objectAcronym)
     return sqlQuery
 
 
