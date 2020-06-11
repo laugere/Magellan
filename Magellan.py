@@ -278,6 +278,9 @@ isResume = args.resume
 attributeCsv = getObjectFromCsv(csvAttribute, "attribute")
 objectClassCsv = getObjectFromCsv(csvObjectClasses, "objectClasse")
 
+if isUpdate:
+    prepareForUpdate()
+
 if args.initDatabase:
     sendObjectToSql(attributeCsv, objectClassCsv, userName, password, host, port, nameDb)
     sendFunctionToSql(userName, password, host, port, nameDb)
