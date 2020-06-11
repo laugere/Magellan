@@ -71,27 +71,40 @@ def sendFunctionToSql(user, password, host, port, database):
 def sendObjectToSql(attributes, objects, user, password, host, port, database):
     connection = psycopg2.connect(user = user, password = password, host = host, port = port, database = database)
     cursor = connection.cursor()
-    query = "CREATE EXTENSION postgis;"
-    cursor.execute(query)
-    connection.commit()
+    try:
+        query = "CREATE EXTENSION postgis;"
+        cursor.execute(query)
+        connection.commit()
+        cursor.close()
+    except:
+        print("Extension Postgis already exist in this database")
     for Object in objects:
         createQuery = "CREATE TABLE \"{0}\" (wkb_geometry geometry);".format(Object.acronym)
         if createQuery != "":
             try:
                 cursor.execute(createQuery)
                 connection.commit()
+                cursor.close()
             except:
                 print("la table {0} existe déjà".format(Object.acronym))
         tableQuery = ""
         if Object.attributes:
             tableQuery = tableQuery + getAttributeSql(Object.acronym, attributes, Object.attributes)
-        tableQuery = tableQuery + "ALTER TABLE \"{0}\" ADD FOREIGN KEY (\"CELLID\") REFERENCES \"DSID\" (CELLID);".format(Object.acronym)
         if tableQuery != "":
             try:
                 cursor.execute(tableQuery)
                 connection.commit()
+                cursor.close()
             except:
                 print("la table {0} est déjà rempli".format(Object.acronym))
+    for Object in objects:
+        if Object.acronym != "DSID":
+            query = "ALTER TABLE \"{0}\" ADD FOREIGN KEY (\"CELLID\") REFERENCES \"DSID\" (CELLID);".format(Object.acronym)
+            try:
+                cursor.execute(tableQuery)
+                connection.commit()
+            except:
+                print("Erreur avec la création de la clé étrangère")
 
 ## ## send s57
 def sends57ToSql(s57Dir, attributes, objects, user, password, host, port, database):
