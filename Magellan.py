@@ -245,6 +245,40 @@ def GetAttributeType(charType):
     ## default text
     return "TEXT"
 
+
+## ## prepare for update
+def prepareForUpdate(s57Dir, userName, password, host, port, nameDb):
+    connection = psycopg2.connect(user = userName, password = password, host = host, port = port, database = nameDb)
+    cursor = connection.cursor()
+    if verbose:
+        print("preparing for update ...")
+        print("delete all cell from country ...")
+    listCells = []
+    for _dir, _file, _filenames in os.walk(s57Dir):
+        for _files in sorted(_filenames):
+            _name = os.path.splitext(_files)[0]
+            _ext = os.path.splitext(_files)[1]
+            try:
+                if(_ext == ".000"):
+                    if (_ext in ['.TXT', '.TIF', '.JPG', '.XML'] or
+                        _name[0] == '.' or
+                        _name == 'CATALOG'):
+                        pass
+                    else:
+                        listCells.append(_dir + os.sep + _files)
+            except OSError as err:
+                print(err)
+                pass
+    for cell in listCells:
+        CELLID = os.path.basename(cell).split('.')[0]
+        query = "SELECT * FROM s57_drop_cell(\'{0}\')".format(CELLID)
+        try:
+            cursor.execute(query)
+            connection.commit()
+        except:
+            print("La requête n'a pas fonctionné peut être que la function n'est pas initialisé")
+
+
 argparser = argparse.ArgumentParser()
 
 argparser.add_argument("--initDatabase", help="Initialize Database for Magellan", action="store_true")
@@ -279,7 +313,7 @@ attributeCsv = getObjectFromCsv(csvAttribute, "attribute")
 objectClassCsv = getObjectFromCsv(csvObjectClasses, "objectClasse")
 
 if isUpdate:
-    prepareForUpdate()
+    prepareForUpdate(s57Dir, userName, password, host, port, nameDb)
 
 if args.initDatabase:
     sendObjectToSql(attributeCsv, objectClassCsv, userName, password, host, port, nameDb)
