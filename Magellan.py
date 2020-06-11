@@ -97,6 +97,13 @@ def sendObjectToSql(attributes, objects, user, password, host, port, database):
             except:
                 print("la table {0} est déjà rempli".format(Object.acronym))
                 connection.rollback()
+    for Object in objects:
+        query = "ALTER TABLE \"{0}\" ADD COLUMN id SERIAL PRIMARY KEY;".format(Object.acronym)
+        try:
+            cursor.execute(query)
+            connection.commit()
+        except:
+            print("La création de la clé étrangère n'a pas pu s'effectuer")
 
 
 ## ## send s57
