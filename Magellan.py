@@ -97,14 +97,6 @@ def sendObjectToSql(attributes, objects, user, password, host, port, database):
             except:
                 print("la table {0} est déjà rempli".format(Object.acronym))
                 connection.rollback()
-    for Object in objects:
-        if Object.acronym != "DSID":
-            query = "ALTER TABLE \"{0}\" ADD CONSTRAINT \"fk_DSID_{1}\" FOREIGN KEY (\"CELLID\") REFERENCES \"DSID\" (\"CELLID\");".format(Object.acronym, Object.acronym)
-            try:
-                cursor.execute(query)
-                connection.commit()
-            except:
-                print("La création de la clé étrangère n'a pas pu s'effectuer")
 
 
 ## ## send s57
@@ -143,7 +135,7 @@ def sends57ToSql(s57Dir, attributes, objects, user, password, host, port, databa
                         geom = feature.geometry()
                         listObject.append(["CELLID", CELLID])
                         if geom != None:
-                            if geom.GetGeometryName() == "MULTIPOINT":
+                            if geom.GetGeometryName() == "MULTIPOINT" and layer.GetName() == "SOUNDG":
                                 for n in range(defn.GetFieldCount()):
                                     layerDefn = defn.GetFieldDefn(n)
                                     for s57Attribute in s57Attributes:
@@ -222,9 +214,9 @@ def getAttributeSql(objectAcronym, globalAttributes, objectAttributes):
                     sqlQuery = sqlQuery + "ALTER TABLE \"{0}\" ADD COLUMN \"{1}\" {2};".format(objectAcronym, objectAttribute, GetAttributeType(globalAttribute.attributeType))
                     break
     if objectAcronym != "DSID":
-        sqlQuery = sqlQuery + "ALTER TABLE \"{0}\" ADD PRIMARY KEY (\"CELLID\", \"LNAM\");".format(objectAcronym)
+        sqlQuery = sqlQuery + "CREATE INDEX index_{0} ON \"{1}\" (\"CELLID\", \"LNAM\");".format(objectAcronym, objectAcronym)
     else:
-        sqlQuery = sqlQuery + "ALTER TABLE \"{0}\" ADD PRIMARY KEY (\"CELLID\");".format(objectAcronym)
+        sqlQuery = sqlQuery + "CREATE INDEX index_{0} ON \"{1}\" (\"CELLID\");".format(objectAcronym, objectAcronym)
     return sqlQuery
 
 
