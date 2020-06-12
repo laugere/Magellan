@@ -137,6 +137,9 @@ def sends57ToSql(s57Dir, attributes, objects, user, password, host, port, databa
             for s57ObjectClasse in s57ObjectClasses:
                 if s57ObjectClasse.acronym == layer.GetName():
                     defn = layer.GetLayerDefn()
+                    if verbose:
+                        print(layer.GetName())
+                        print(layer.GetFeatureCount())
                     for j in range(layer.GetFeatureCount()):
                         listObject = []
                         feature = layer.GetNextFeature()
@@ -144,6 +147,7 @@ def sends57ToSql(s57Dir, attributes, objects, user, password, host, port, databa
                         listObject.append(["CELLID", CELLID])
                         if geom != None:
                             if geom.GetGeometryName() == "MULTIPOINT" and layer.GetName() == "SOUNDG":
+                                sqlRequest = ""
                                 for n in range(defn.GetFieldCount()):
                                     layerDefn = defn.GetFieldDefn(n)
                                     for s57Attribute in s57Attributes:
@@ -310,11 +314,11 @@ isUpdate = args.update
 attributeCsv = getObjectFromCsv(csvAttribute, "attribute")
 objectClassCsv = getObjectFromCsv(csvObjectClasses, "objectClasse")
 
-if isUpdate:
-    prepareForUpdate(s57Dir, userName, password, host, port, nameDb)
-
 if args.initDatabase:
     sendObjectToSql(attributeCsv, objectClassCsv, userName, password, host, port, nameDb)
     sendFunctionToSql(userName, password, host, port, nameDb)
+
+if isUpdate:
+    prepareForUpdate(s57Dir, userName, password, host, port, nameDb)
 
 sends57ToSql(s57Dir, attributeCsv, objectClassCsv, userName, password, host, port, nameDb)
