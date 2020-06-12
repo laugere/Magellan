@@ -285,7 +285,6 @@ argparser.add_argument("--initDatabase", help="Initialize Database for Magellan"
 argparser.add_argument("--csvAttribute", default="GDALCSV\\s57attributes.csv", help="Change s57attribute.csv path")
 argparser.add_argument("--csvObjectClasses", default="GDALCSV\\s57objectclasses.csv", help="Change s57objectClasses path")
 argparser.add_argument("--update", help="update overwrite temp and data into the database for updating cells", action="store_true")
-argparser.add_argument("--resume", help="Resume installation of the cells", action="store_true")
 argparser.add_argument("--verbose", help="Verbose for talk about the process", action="store_true")
 argparser.add_argument("s57Dir", help="s57 chart path")
 argparser.add_argument("userName", help="Username of the database")
@@ -307,7 +306,6 @@ port = args.port
 nameDb = args.nameDb
 
 isUpdate = args.update
-isResume = args.resume
 
 attributeCsv = getObjectFromCsv(csvAttribute, "attribute")
 objectClassCsv = getObjectFromCsv(csvObjectClasses, "objectClasse")
