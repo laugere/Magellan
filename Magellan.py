@@ -93,7 +93,7 @@ def sendObjectToSql(attributes, objects, user, password, host, port, database):
             cursor.execute(query)
             connection.commit()
         except:
-            print("La création de la clé étrangère n'a pas pu s'effectuer")
+            print("La création de la clé primaire (id) n'a pas pu s'effectuer")
     for Object in objects:
         tableQuery = ""
         if Object.attributes:
