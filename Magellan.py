@@ -72,20 +72,20 @@ def sendObjectToSql(attributes, objects, user, password, host, port, database):
     connection = psycopg2.connect(user = user, password = password, host = host, port = port, database = database)
     cursor = connection.cursor()
     try:
-        query = "CREATE EXTENSION postgis;"
+        query = "CREATE IF NOT EXISTS EXTENSION postgis;"
         cursor.execute(query)
         connection.commit()
     except:
         print("Extension Postgis already exist in this database")
         connection.rollback()
     for Object in objects:
-        createQuery = "CREATE TABLE \"{0}\" (wkb_geometry geometry);".format(Object.acronym)
+        createQuery = "CREATE TABLE IF NOT EXISTS \"{0}\" (wkb_geometry geometry);".format(Object.acronym)
         if createQuery != "":
             try:
                 cursor.execute(createQuery)
                 connection.commit()
             except:
-                print("la table {0} existe déjà".format(Object.acronym))
+                print("Un problème avec la création de la table {0}".format(Object.acronym))
                 connection.rollback()
     for Object in objects:
         query = "ALTER TABLE \"{0}\" ADD COLUMN id SERIAL PRIMARY KEY;".format(Object.acronym)
@@ -103,7 +103,7 @@ def sendObjectToSql(attributes, objects, user, password, host, port, database):
                 cursor.execute(tableQuery)
                 connection.commit()
             except:
-                print("la table {0} est déjà rempli".format(Object.acronym))
+                print("la table {0} est déjà initializé".format(Object.acronym))
                 connection.rollback()
 
 
