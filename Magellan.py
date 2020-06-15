@@ -79,7 +79,7 @@ def sendObjectToSql(attributes, objects, user, password, host, port, database):
         print("Extension Postgis already exist in this database")
         connection.rollback()
     for Object in objects:
-        createQuery = "CREATE TABLE IF NOT EXISTS \"{0}\" (wkb_geometry geometry);".format(Object.acronym)
+        createQuery = "CREATE TABLE IF NOT EXISTS \"{0}\" (wkb_geometry geometry);".format(Object.acronym.upper())
         if createQuery != "":
             try:
                 cursor.execute(createQuery)
@@ -88,7 +88,7 @@ def sendObjectToSql(attributes, objects, user, password, host, port, database):
                 print("Un problème avec la création de la table {0}".format(Object.acronym))
                 connection.rollback()
     for Object in objects:
-        query = "ALTER TABLE \"{0}\" ADD COLUMN id SERIAL PRIMARY KEY;".format(Object.acronym)
+        query = "ALTER TABLE \"{0}\" ADD COLUMN id SERIAL PRIMARY KEY;".format(Object.acronym.upper())
         try:
             cursor.execute(query)
             connection.commit()
@@ -187,7 +187,7 @@ def createSQLQuery(listObject, layerName):
     if verbose:
         print("Extraction de la couche {0} en cours ...".format(layerName))
         print("Création de la requete SQL en cours ...")
-    sqlRequest = "INSERT INTO \"{0}\" (".format(layerName)
+    sqlRequest = "INSERT INTO \"{0}\" (".format(layerName.upper())
     i = 0
     for s57Object in listObject:
         if i == 0:
@@ -223,12 +223,12 @@ def getAttributeSql(objectAcronym, globalAttributes, objectAttributes):
         if objectAttribute:
             for globalAttribute in globalAttributes:
                 if objectAttribute == globalAttribute.acronym:
-                    sqlQuery = sqlQuery + "ALTER TABLE \"{0}\" ADD COLUMN \"{1}\" {2};".format(objectAcronym, objectAttribute, GetAttributeType(globalAttribute.attributeType))
+                    sqlQuery = sqlQuery + "ALTER TABLE \"{0}\" ADD COLUMN \"{1}\" {2};".format(objectAcronym.upper(), objectAttribute, GetAttributeType(globalAttribute.attributeType))
                     break
     if objectAcronym != "DSID":
-        sqlQuery = sqlQuery + "CREATE INDEX index_{0} ON \"{1}\" (\"CELLID\", \"LNAM\");".format(objectAcronym, objectAcronym)
+        sqlQuery = sqlQuery + "CREATE INDEX index_{0} ON \"{1}\" (\"CELLID\", \"LNAM\");".format(objectAcronym.upper(), objectAcronym)
     else:
-        sqlQuery = sqlQuery + "CREATE INDEX index_{0} ON \"{1}\" (\"CELLID\");".format(objectAcronym, objectAcronym)
+        sqlQuery = sqlQuery + "CREATE INDEX index_{0} ON \"{1}\" (\"CELLID\");".format(objectAcronym.upper(), objectAcronym)
     return sqlQuery
 
 
