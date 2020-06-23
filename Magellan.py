@@ -97,7 +97,7 @@ def sendObjectToSql(attributes, objects, user, password, host, port, database):
     for Object in objects:
         tableQuery = ""
         if Object.attributes:
-            tableQuery = tableQuery + getAttributeSql(Object.acronym, attributes, Object.attributes)
+            tableQuery = tableQuery + getAttributeSql(Object.acronym.upper(), attributes, Object.attributes)
         if tableQuery != "":
             try:
                 cursor.execute(tableQuery)
