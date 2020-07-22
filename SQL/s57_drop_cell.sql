@@ -13,7 +13,7 @@ FOR schemaname, tablename IN
     WHERE t.table_type='BASE TABLE'
     LOOP
         IF tablename != 'spatial_ref_sys' AND schemaname = 'public' THEN
-            query := format('DELETE FROM %I.%I AS t WHERE "CELLID" LIKE ''%s''', schemaname, tablename, UPPER(cellName));
+            query := format('DELETE FROM %I.%I AS t WHERE "CELLID" = ''%s''', schemaname, tablename, UPPER(cellName));
 			raise notice 'Value: %', query;
             EXECUTE query;
         END IF;
