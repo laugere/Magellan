@@ -143,41 +143,46 @@ def sends57ToSql(s57Dir, attributes, objects, user, password, host, port, databa
                     for j in range(layer.GetFeatureCount()):
                         listObject = []
                         feature = layer.GetNextFeature()
-                        geom = feature.geometry()
-                        listObject.append(["CELLID", CELLID])
-                        if geom != None:
-                            if geom.GetGeometryName() == "MULTIPOINT" and layer.GetName() == "SOUNDG":
-                                sqlRequest = ""
-                                for n in range(defn.GetFieldCount()):
-                                    layerDefn = defn.GetFieldDefn(n)
-                                    for s57Attribute in s57Attributes:
-                                        if s57Attribute.acronym == layerDefn.GetName():
-                                            listObject.append([layerDefn.GetName(), feature.GetField(layerDefn.GetName())])
-                                listObject.append(["DEPTH", None])
-                                listObject.append(["wkb_geometry", None])
-                                for i in range(geom.GetGeometryCount()):
-                                    point = geom.GetGeometryRef(i)
-                                    listObject[-2] = ["DEPTH", point.GetZ()]
-                                    listObject[-1] = ["wkb_geometry", point]
-                                    sqlRequest += createSQLQuery(listObject, layer.GetName())
+                        if layer.GetName() != "DSID":
+                            existingObject = SearchObject(feature.GetField("LNAM"), layer.GetName(), connection)
+                        else:
+                            existingObject = False
+                        if not existingObject:
+                            geom = feature.geometry()
+                            listObject.append(["CELLID", CELLID])
+                            if geom != None:
+                                if geom.GetGeometryName() == "MULTIPOINT" and layer.GetName() == "SOUNDG":
+                                    sqlRequest = ""
+                                    for n in range(defn.GetFieldCount()):
+                                        layerDefn = defn.GetFieldDefn(n)
+                                        for s57Attribute in s57Attributes:
+                                            if s57Attribute.acronym == layerDefn.GetName():
+                                                listObject.append([layerDefn.GetName(), feature.GetField(layerDefn.GetName())])
+                                    listObject.append(["DEPTH", None])
+                                    listObject.append(["wkb_geometry", None])
+                                    for i in range(geom.GetGeometryCount()):
+                                        point = geom.GetGeometryRef(i)
+                                        listObject[-2] = ["DEPTH", point.GetZ()]
+                                        listObject[-1] = ["wkb_geometry", point]
+                                        sqlRequest += createSQLQuery(listObject, layer.GetName())
+                                else:
+                                    listObject.append(["wkb_geometry", geom])
+                                    for n in range(defn.GetFieldCount()):
+                                        layerDefn = defn.GetFieldDefn(n)
+                                        for s57Attribute in s57Attributes:
+                                            if s57Attribute.acronym == layerDefn.GetName():
+                                                listObject.append([layerDefn.GetName(), feature.GetField(layerDefn.GetName())])
+                                    sqlRequest = createSQLQuery(listObject, layer.GetName())
                             else:
-                                listObject.append(["wkb_geometry", geom])
                                 for n in range(defn.GetFieldCount()):
                                     layerDefn = defn.GetFieldDefn(n)
                                     for s57Attribute in s57Attributes:
                                         if s57Attribute.acronym == layerDefn.GetName():
                                             listObject.append([layerDefn.GetName(), feature.GetField(layerDefn.GetName())])
                                 sqlRequest = createSQLQuery(listObject, layer.GetName())
-                        else:
-                            for n in range(defn.GetFieldCount()):
-                                layerDefn = defn.GetFieldDefn(n)
-                                for s57Attribute in s57Attributes:
-                                    if s57Attribute.acronym == layerDefn.GetName():
-                                        listObject.append([layerDefn.GetName(), feature.GetField(layerDefn.GetName())])
-                            sqlRequest = createSQLQuery(listObject, layer.GetName())
-                        sqlRequest = sqlRequest.encode("utf-8", "replace").decode("utf-8", "replace")
-                        cursor.execute(sqlRequest)
-                        connection.commit()
+                            sqlRequest = sqlRequest.encode("utf-8", "replace").decode("utf-8", "replace")
+                            cursor.execute(sqlRequest)
+                            connection.commit()
     if verbose:
         print("Fin du process")
 
@@ -281,6 +286,17 @@ def prepareForUpdate(s57Dir, userName, password, host, port, nameDb):
             connection.commit()
         except:
             print("La requête n'a pas fonctionné peut être que la function n'est pas initialisé")
+
+
+def SearchObject(LNAM, table, connection):
+    cursor = connection.cursor()
+    query = "SELECT * FROM \"{0}\" WHERE \"LNAM\" = '{1}';".format(table, LNAM)
+    cursor.execute(query)
+    if len(cursor.fetchall()) > 0:
+        return True
+    else:
+        return False
+
 
 
 argparser = argparse.ArgumentParser()
