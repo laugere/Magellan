@@ -20,7 +20,7 @@
   </projectCrs>
   <layer-tree-group>
     <customproperties/>
-    <layer-tree-layer id="WRECKS20120905085501650" source="dbname='ENC_ES' host=labs.geogarage.com port=5432 user='martin' sslmode=disable key='tid' srid=0 type=Point checkPrimaryKeyUnicity='1' table=&quot;public&quot;.&quot;WRECKS&quot; (wkb_geometry)" checked="Qt::Checked" providerKey="postgres" expanded="1" name="WRECKS">
+    <layer-tree-layer id="WRECKS20120905085501650" source="dbname='ENC_BC_SAMPLE_ENCX' host=labs.geogarage.com port=5432 user='martin' sslmode=disable key='tid' srid=0 type=Point checkPrimaryKeyUnicity='1' table=&quot;public&quot;.&quot;WRECKS&quot; (wkb_geometry)" checked="Qt::Checked" providerKey="postgres" expanded="1" name="WRECKS">
       <customproperties>
         <property value="0" key="overview"/>
       </customproperties>
@@ -43,52 +43,52 @@
     <layer-tree-layer id="NAVLNE20120905085500608" source="../Downloads/qgis_nautical/NAVLNE.shp" checked="Qt::Checked" providerKey="ogr" expanded="1" name="NAVLNE">
       <customproperties/>
     </layer-tree-layer>
-    <layer-tree-layer id="LNDMRK20120905085500091" source="dbname='ENC_ES' host=labs.geogarage.com port=5432 user='martin' sslmode=disable key='tid' srid=0 type=Polygon checkPrimaryKeyUnicity='1' table=&quot;public&quot;.&quot;LNDMRK&quot; (wkb_geometry)" checked="Qt::Checked" providerKey="postgres" expanded="0" name="LNDMRK">
+    <layer-tree-layer id="LNDMRK20120905085500091" source="dbname='ENC_BC_SAMPLE_ENCX' host=labs.geogarage.com port=5432 user='martin' sslmode=disable key='tid' srid=0 type=Polygon checkPrimaryKeyUnicity='1' table=&quot;public&quot;.&quot;LNDMRK&quot; (wkb_geometry)" checked="Qt::Checked" providerKey="postgres" expanded="0" name="LNDMRK">
       <customproperties/>
     </layer-tree-layer>
     <layer-tree-layer id="LNDELV20120905085500005" source="../Downloads/qgis_nautical/LNDELV.shp" checked="Qt::Unchecked" providerKey="ogr" expanded="0" name="LNDELV">
       <customproperties/>
     </layer-tree-layer>
-    <layer-tree-layer id="LIGHTS20120905085459870" source="dbname='ENC_ES' host=labs.geogarage.com port=5432 user='martin' sslmode=disable key='tid' srid=0 type=Point checkPrimaryKeyUnicity='1' table=&quot;public&quot;.&quot;LIGHTS&quot; (wkb_geometry)" checked="Qt::Checked" providerKey="postgres" expanded="1" name="LIGHTS">
+    <layer-tree-layer id="LIGHTS20120905085459870" source="dbname='ENC_BC_SAMPLE_ENCX' host=labs.geogarage.com port=5432 user='martin' sslmode=disable key='tid' srid=0 type=Point checkPrimaryKeyUnicity='1' table=&quot;public&quot;.&quot;LIGHTS&quot; (wkb_geometry)" checked="Qt::Checked" providerKey="postgres" expanded="1" name="LIGHTS">
       <customproperties/>
     </layer-tree-layer>
-    <layer-tree-layer id="HRBFAC20120905085459755" source="dbname='ENC_ES' host=labs.geogarage.com port=5432 user='martin' sslmode=disable key='tid' srid=0 type=Point checkPrimaryKeyUnicity='1' table=&quot;public&quot;.&quot;HRBFAC&quot; (wkb_geometry)" checked="Qt::Checked" providerKey="postgres" expanded="0" name="HRBFAC">
+    <layer-tree-layer id="HRBFAC20120905085459755" source="dbname='ENC_BC_SAMPLE_ENCX' host=labs.geogarage.com port=5432 user='martin' sslmode=disable key='tid' srid=0 type=Point checkPrimaryKeyUnicity='1' table=&quot;public&quot;.&quot;HRBFAC&quot; (wkb_geometry)" checked="Qt::Checked" providerKey="postgres" expanded="0" name="HRBFAC">
       <customproperties/>
     </layer-tree-layer>
     <layer-tree-layer id="DAYMAR20120905085459143" source="../Downloads/qgis_nautical/DAYMAR.shp" checked="Qt::Checked" providerKey="ogr" expanded="0" name="DAYMAR">
       <customproperties/>
     </layer-tree-layer>
-    <layer-tree-layer id="DEPCNT20120905085459369" source="dbname='ENC_ES' host=labs.geogarage.com port=5432 user='martin' sslmode=disable key='tid' srid=0 type=LineString checkPrimaryKeyUnicity='1' table=&quot;public&quot;.&quot;DEPCNT&quot; (wkb_geometry)" checked="Qt::Checked" providerKey="postgres" expanded="0" name="DEPCNT">
+    <layer-tree-layer id="DEPCNT20120905085459369" source="dbname='ENC_BC_SAMPLE_ENCX' host=labs.geogarage.com port=5432 user='martin' sslmode=disable key='tid' srid=0 type=LineString checkPrimaryKeyUnicity='1' table=&quot;public&quot;.&quot;DEPCNT&quot; (wkb_geometry)" checked="Qt::Checked" providerKey="postgres" expanded="0" name="DEPCNT">
       <customproperties/>
     </layer-tree-layer>
     <layer-tree-layer id="COALNE20120905085458885" source="../Downloads/qgis_nautical/COALNE.shp" checked="Qt::Checked" providerKey="ogr" expanded="0" name="COALNE">
       <customproperties/>
     </layer-tree-layer>
-    <layer-tree-layer id="BRIDGE20120905085458468" source="dbname='ENC_ES' host=labs.geogarage.com port=5432 user='martin' sslmode=disable key='tid' srid=0 type=Polygon checkPrimaryKeyUnicity='1' table=&quot;public&quot;.&quot;BRIDGE&quot; (wkb_geometry)" checked="Qt::Checked" providerKey="postgres" expanded="0" name="BRIDGE">
+    <layer-tree-layer id="BRIDGE20120905085458468" source="dbname='ENC_BC_SAMPLE_ENCX' host=labs.geogarage.com port=5432 user='martin' sslmode=disable key='tid' srid=0 type=Polygon checkPrimaryKeyUnicity='1' table=&quot;public&quot;.&quot;BRIDGE&quot; (wkb_geometry)" checked="Qt::Checked" providerKey="postgres" expanded="0" name="BRIDGE">
       <customproperties/>
     </layer-tree-layer>
-    <layer-tree-layer id="BOYLAT20120905085458308" source="dbname='ENC_ES' host=labs.geogarage.com port=5432 user='martin' sslmode=disable key='tid' srid=0 type=Point checkPrimaryKeyUnicity='1' table=&quot;public&quot;.&quot;BOYLAT&quot; (wkb_geometry)" checked="Qt::Checked" providerKey="postgres" expanded="0" name="BOYLAT">
+    <layer-tree-layer id="BOYLAT20120905085458308" source="dbname='ENC_BC_SAMPLE_ENCX' host=labs.geogarage.com port=5432 user='martin' sslmode=disable key='tid' srid=0 type=Point checkPrimaryKeyUnicity='1' table=&quot;public&quot;.&quot;BOYLAT&quot; (wkb_geometry)" checked="Qt::Checked" providerKey="postgres" expanded="0" name="BOYLAT">
       <customproperties/>
     </layer-tree-layer>
-    <layer-tree-layer id="BOYCAR20120905085458249" source="dbname='ENC_ES' host=labs.geogarage.com port=5432 user='martin' sslmode=disable key='tid' srid=0 type=Point checkPrimaryKeyUnicity='1' table=&quot;public&quot;.&quot;BOYCAR&quot; (wkb_geometry)" checked="Qt::Checked" providerKey="postgres" expanded="0" name="BOYCAR">
+    <layer-tree-layer id="BOYCAR20120905085458249" source="dbname='ENC_BC_SAMPLE_ENCX' host=labs.geogarage.com port=5432 user='martin' sslmode=disable key='tid' srid=0 type=Point checkPrimaryKeyUnicity='1' table=&quot;public&quot;.&quot;BOYCAR&quot; (wkb_geometry)" checked="Qt::Checked" providerKey="postgres" expanded="0" name="BOYCAR">
       <customproperties/>
     </layer-tree-layer>
-    <layer-tree-layer id="BCNSPP20120905085458099" source="dbname='ENC_ES' host=labs.geogarage.com port=5432 user='martin' sslmode=disable key='tid' srid=0 type=Point checkPrimaryKeyUnicity='1' table=&quot;public&quot;.&quot;BCNSPP&quot; (wkb_geometry)" checked="Qt::Checked" providerKey="postgres" expanded="0" name="BCNSPP">
+    <layer-tree-layer id="BCNSPP20120905085458099" source="dbname='ENC_BC_SAMPLE_ENCX' host=labs.geogarage.com port=5432 user='martin' sslmode=disable key='tid' srid=0 type=Point checkPrimaryKeyUnicity='1' table=&quot;public&quot;.&quot;BCNSPP&quot; (wkb_geometry)" checked="Qt::Checked" providerKey="postgres" expanded="0" name="BCNSPP">
       <customproperties/>
     </layer-tree-layer>
-    <layer-tree-layer id="BCNLAT20120905085457934" source="dbname='ENC_ES' host=labs.geogarage.com port=5432 user='martin' sslmode=disable key='tid' srid=0 type=Point checkPrimaryKeyUnicity='1' table=&quot;public&quot;.&quot;BCNLAT&quot; (wkb_geometry)" checked="Qt::Checked" providerKey="postgres" expanded="0" name="BCNLAT">
+    <layer-tree-layer id="BCNLAT20120905085457934" source="dbname='ENC_BC_SAMPLE_ENCX' host=labs.geogarage.com port=5432 user='martin' sslmode=disable key='tid' srid=0 type=Point checkPrimaryKeyUnicity='1' table=&quot;public&quot;.&quot;BCNLAT&quot; (wkb_geometry)" checked="Qt::Checked" providerKey="postgres" expanded="0" name="BCNLAT">
       <customproperties/>
     </layer-tree-layer>
     <layer-tree-layer id="BCNISD20120905085457818" source="../Downloads/qgis_nautical/BCNISD.shp" checked="Qt::Checked" providerKey="ogr" expanded="0" name="BCNISD">
       <customproperties/>
     </layer-tree-layer>
-    <layer-tree-layer id="BCNCAR20120905085457667" source="dbname='ENC_ES' host=labs.geogarage.com port=5432 user='martin' sslmode=disable key='tid' srid=0 type=Point checkPrimaryKeyUnicity='1' table=&quot;public&quot;.&quot;BCNCAR&quot; (wkb_geometry)" checked="Qt::Checked" providerKey="postgres" expanded="0" name="BCNCAR">
+    <layer-tree-layer id="BCNCAR20120905085457667" source="dbname='ENC_BC_SAMPLE_ENCX' host=labs.geogarage.com port=5432 user='martin' sslmode=disable key='tid' srid=0 type=Point checkPrimaryKeyUnicity='1' table=&quot;public&quot;.&quot;BCNCAR&quot; (wkb_geometry)" checked="Qt::Checked" providerKey="postgres" expanded="0" name="BCNCAR">
       <customproperties/>
     </layer-tree-layer>
-    <layer-tree-layer id="ACHARE20120905085457387" source="dbname='ENC_ES' host=labs.geogarage.com port=5432 user='martin' sslmode=disable key='tid' srid=0 type=Polygon checkPrimaryKeyUnicity='1' table=&quot;public&quot;.&quot;achare&quot; (wkb_geometry)" checked="Qt::Checked" providerKey="postgres" expanded="0" name="ACHARE">
+    <layer-tree-layer id="ACHARE20120905085457387" source="dbname='ENC_BC_SAMPLE_ENCX' host=labs.geogarage.com port=5432 user='martin' sslmode=disable key='tid' srid=0 type=Polygon checkPrimaryKeyUnicity='1' table=&quot;public&quot;.&quot;achare&quot; (wkb_geometry)" checked="Qt::Checked" providerKey="postgres" expanded="0" name="ACHARE">
       <customproperties/>
     </layer-tree-layer>
-    <layer-tree-layer id="SBDARE20120905085501157" source="dbname='ENC_ES' host=labs.geogarage.com port=5432 user='martin' sslmode=disable key='tid' srid=0 type=Point checkPrimaryKeyUnicity='1' table=&quot;public&quot;.&quot;SBDARE&quot; (wkb_geometry)" checked="Qt::Checked" providerKey="postgres" expanded="0" name="SBDARE">
+    <layer-tree-layer id="SBDARE20120905085501157" source="dbname='ENC_BC_SAMPLE_ENCX' host=labs.geogarage.com port=5432 user='martin' sslmode=disable key='tid' srid=0 type=Point checkPrimaryKeyUnicity='1' table=&quot;public&quot;.&quot;SBDARE&quot; (wkb_geometry)" checked="Qt::Checked" providerKey="postgres" expanded="0" name="SBDARE">
       <customproperties/>
     </layer-tree-layer>
     <layer-tree-layer id="LAKARE20120905085459817" source="../Downloads/qgis_nautical/LAKARE.shp" checked="Qt::Checked" providerKey="ogr" expanded="0" name="LAKARE">
@@ -100,7 +100,7 @@
     <layer-tree-layer id="FAIRWY20120905085459606" source="../Downloads/qgis_nautical/FAIRWY.shp" checked="Qt::Checked" providerKey="ogr" expanded="1" name="FAIRWY">
       <customproperties/>
     </layer-tree-layer>
-    <layer-tree-layer id="DRGARE20120905085459539" source="dbname='ENC_ES' host=labs.geogarage.com port=5432 user='martin' sslmode=disable key='tid' srid=0 type=Polygon checkPrimaryKeyUnicity='1' table=&quot;public&quot;.&quot;DRGARE&quot; (wkb_geometry)" checked="Qt::Checked" providerKey="postgres" expanded="0" name="DRGARE">
+    <layer-tree-layer id="DRGARE20120905085459539" source="dbname='ENC_BC_SAMPLE_ENCX' host=labs.geogarage.com port=5432 user='martin' sslmode=disable key='tid' srid=0 type=Polygon checkPrimaryKeyUnicity='1' table=&quot;public&quot;.&quot;DRGARE&quot; (wkb_geometry)" checked="Qt::Checked" providerKey="postgres" expanded="0" name="DRGARE">
       <customproperties/>
     </layer-tree-layer>
     <layer-tree-layer id="DMPGRD20120905085459473" source="../Downloads/qgis_nautical/DMPGRD.shp" checked="Qt::Checked" providerKey="ogr" expanded="0" name="DMPGRD">
@@ -109,16 +109,16 @@
     <layer-tree-layer id="CBLARE20120905085458754" source="../Downloads/qgis_nautical/CBLARE.shp" checked="Qt::Checked" providerKey="ogr" expanded="0" name="CBLARE">
       <customproperties/>
     </layer-tree-layer>
-    <layer-tree-layer id="SLCONS20120905085501363" source="dbname='ENC_ES' host=labs.geogarage.com port=5432 user='martin' sslmode=disable key='tid' srid=0 type=Polygon checkPrimaryKeyUnicity='1' table=&quot;public&quot;.&quot;SLCONS&quot; (wkb_geometry)" checked="Qt::Checked" providerKey="postgres" expanded="1" name="SLCONS">
+    <layer-tree-layer id="SLCONS20120905085501363" source="dbname='ENC_BC_SAMPLE_ENCX' host=labs.geogarage.com port=5432 user='martin' sslmode=disable key='tid' srid=0 type=Polygon checkPrimaryKeyUnicity='1' table=&quot;public&quot;.&quot;SLCONS&quot; (wkb_geometry)" checked="Qt::Checked" providerKey="postgres" expanded="1" name="SLCONS">
       <customproperties/>
     </layer-tree-layer>
-    <layer-tree-layer id="OBSTRN20120905085500674" source="dbname='ENC_ES' host=labs.geogarage.com port=5432 user='martin' sslmode=disable key='tid' srid=0 type=Polygon checkPrimaryKeyUnicity='1' table=&quot;public&quot;.&quot;OBSTRN&quot; (wkb_geometry)" checked="Qt::Checked" providerKey="postgres" expanded="1" name="OBSTRN">
+    <layer-tree-layer id="OBSTRN20120905085500674" source="dbname='ENC_BC_SAMPLE_ENCX' host=labs.geogarage.com port=5432 user='martin' sslmode=disable key='tid' srid=0 type=Polygon checkPrimaryKeyUnicity='1' table=&quot;public&quot;.&quot;OBSTRN&quot; (wkb_geometry)" checked="Qt::Checked" providerKey="postgres" expanded="1" name="OBSTRN">
       <customproperties/>
     </layer-tree-layer>
-    <layer-tree-layer id="LNDARE20120905085459942" source="dbname='ENC_ES' host=labs.geogarage.com port=5432 user='martin' sslmode=disable key='tid' srid=0 type=Polygon checkPrimaryKeyUnicity='1' table=&quot;public&quot;.&quot;LNDARE&quot; (wkb_geometry)" checked="Qt::Checked" providerKey="postgres" expanded="1" name="LNDARE">
+    <layer-tree-layer id="LNDARE20120905085459942" source="dbname='ENC_BC_SAMPLE_ENCX' host=labs.geogarage.com port=5432 user='martin' sslmode=disable key='tid' srid=0 type=Polygon checkPrimaryKeyUnicity='1' table=&quot;public&quot;.&quot;LNDARE&quot; (wkb_geometry)" checked="Qt::Checked" providerKey="postgres" expanded="1" name="LNDARE">
       <customproperties/>
     </layer-tree-layer>
-    <layer-tree-layer id="RESARE20120905085500972" source="dbname='ENC_ES' host=labs.geogarage.com port=5432 user='martin' sslmode=disable key='tid' srid=0 type=Polygon checkPrimaryKeyUnicity='1' table=&quot;public&quot;.&quot;RESARE&quot; (wkb_geometry)" checked="Qt::Checked" providerKey="postgres" expanded="0" name="RESARE">
+    <layer-tree-layer id="RESARE20120905085500972" source="dbname='ENC_BC_SAMPLE_ENCX' host=labs.geogarage.com port=5432 user='martin' sslmode=disable key='tid' srid=0 type=Polygon checkPrimaryKeyUnicity='1' table=&quot;public&quot;.&quot;RESARE&quot; (wkb_geometry)" checked="Qt::Checked" providerKey="postgres" expanded="0" name="RESARE">
       <customproperties/>
     </layer-tree-layer>
     <layer-tree-layer id="BUISGL20120905085458641" source="../Downloads/qgis_nautical/BUISGL.shp" checked="Qt::Checked" providerKey="ogr" expanded="0" name="BUISGL">
@@ -127,13 +127,13 @@
     <layer-tree-layer id="BUAARE20120905085458549" source="../Downloads/qgis_nautical/BUAARE.shp" checked="Qt::Checked" providerKey="ogr" expanded="0" name="BUAARE">
       <customproperties/>
     </layer-tree-layer>
-    <layer-tree-layer id="SOUNDG_ccfd56f6_2390_4015_b34e_342ff0bfb2a9" source="dbname='ENC_ES' host=labs.geogarage.com port=5432 user='martin' sslmode=disable key='tid' srid=0 type=Point checkPrimaryKeyUnicity='1' table=&quot;public&quot;.&quot;SOUNDG&quot; (wkb_geometry)" checked="Qt::Checked" providerKey="postgres" expanded="1" name="SOUNDG">
+    <layer-tree-layer id="SOUNDG_ccfd56f6_2390_4015_b34e_342ff0bfb2a9" source="dbname='ENC_BC_SAMPLE_ENCX' host=labs.geogarage.com port=5432 user='martin' sslmode=disable key='tid' srid=0 type=Point checkPrimaryKeyUnicity='1' table=&quot;public&quot;.&quot;SOUNDG&quot; (wkb_geometry)" checked="Qt::Checked" providerKey="postgres" expanded="1" name="SOUNDG">
       <customproperties/>
     </layer-tree-layer>
-    <layer-tree-layer id="DEPARE20120905085459228" source="dbname='ENC_ES' host=labs.geogarage.com port=5432 user='martin' sslmode=disable key='tid' srid=0 type=Polygon checkPrimaryKeyUnicity='1' table=&quot;public&quot;.&quot;DEPARE&quot; (wkb_geometry)" checked="Qt::Checked" providerKey="postgres" expanded="0" name="DEPARE">
+    <layer-tree-layer id="DEPARE20120905085459228" source="dbname='ENC_BC_SAMPLE_ENCX' host=labs.geogarage.com port=5432 user='martin' sslmode=disable key='tid' srid=0 type=Polygon checkPrimaryKeyUnicity='1' table=&quot;public&quot;.&quot;DEPARE&quot; (wkb_geometry)" checked="Qt::Checked" providerKey="postgres" expanded="0" name="DEPARE">
       <customproperties/>
     </layer-tree-layer>
-    <layer-tree-layer id="M_COVR_bbe17354_b1c2_4633_b27e_8ac24836d292" source="dbname='ENC_ES' host=labs.geogarage.com port=5432 user='martin' sslmode=disable key='tid' srid=0 type=Polygon checkPrimaryKeyUnicity='1' table=&quot;public&quot;.&quot;M_COVR&quot; (wkb_geometry)" checked="Qt::Checked" providerKey="postgres" expanded="1" name="M_COVR">
+    <layer-tree-layer id="M_COVR_bbe17354_b1c2_4633_b27e_8ac24836d292" source="dbname='ENC_BC_SAMPLE_ENCX' host=labs.geogarage.com port=5432 user='martin' sslmode=disable key='tid' srid=0 type=Polygon checkPrimaryKeyUnicity='1' table=&quot;public&quot;.&quot;M_COVR&quot; (wkb_geometry)" checked="Qt::Checked" providerKey="postgres" expanded="1" name="M_COVR">
       <customproperties/>
     </layer-tree-layer>
     <layer-tree-layer id="OpenStreetMap_3b66a3e6_a206_4144_8a55_9b4023b6a032" source="crs=EPSG:3857&amp;format&amp;type=xyz&amp;url=https://tile.openstreetmap.org/%7Bz%7D/%7Bx%7D/%7By%7D.png&amp;zmax=19&amp;zmin=0" checked="Qt::Checked" providerKey="wms" expanded="1" name="OpenStreetMap">
@@ -420,7 +420,7 @@
   <projectlayers>
     <maplayer type="vector" wkbType="Polygon" maxScale="-4.65661e-10" minScale="100000000" hasScaleBasedVisibilityFlag="0" autoRefreshTime="0" geometry="Polygon" labelsEnabled="1" refreshOnNotifyEnabled="0" autoRefreshEnabled="0" simplifyLocal="1" simplifyAlgorithm="0" refreshOnNotifyMessage="" simplifyMaxScale="1" styleCategories="AllStyleCategories" simplifyDrawingHints="0" simplifyDrawingTol="1" readOnly="0">
       <id>ACHARE20120905085457387</id>
-      <datasource>dbname='ENC_ES' host=labs.geogarage.com port=5432 user='martin' password='d1frukobRo3a' sslmode=disable key='tid' srid=0 type=Polygon checkPrimaryKeyUnicity='1' table="public"."achare" (wkb_geometry)</datasource>
+      <datasource>dbname='ENC_BC_SAMPLE_ENCX' host=labs.geogarage.com port=5432 user='martin' password='d1frukobRo3a' sslmode=disable key='tid' srid=0 type=Polygon checkPrimaryKeyUnicity='1' table="public"."achare" (wkb_geometry)</datasource>
       <keywordList>
         <value></value>
       </keywordList>
@@ -954,7 +954,7 @@
     </maplayer>
     <maplayer type="vector" wkbType="Point" maxScale="-4.65661e-10" minScale="100000000" hasScaleBasedVisibilityFlag="0" autoRefreshTime="0" geometry="Point" labelsEnabled="1" refreshOnNotifyEnabled="0" autoRefreshEnabled="0" simplifyLocal="1" simplifyAlgorithm="0" refreshOnNotifyMessage="" simplifyMaxScale="1" styleCategories="AllStyleCategories" simplifyDrawingHints="0" simplifyDrawingTol="1" readOnly="0">
       <id>BCNCAR20120905085457667</id>
-      <datasource>dbname='ENC_ES' host=labs.geogarage.com port=5432 user='martin' password='d1frukobRo3a' sslmode=disable key='tid' srid=0 type=Point checkPrimaryKeyUnicity='1' table="public"."BCNCAR" (wkb_geometry)</datasource>
+      <datasource>dbname='ENC_BC_SAMPLE_ENCX' host=labs.geogarage.com port=5432 user='martin' password='d1frukobRo3a' sslmode=disable key='tid' srid=0 type=Point checkPrimaryKeyUnicity='1' table="public"."BCNCAR" (wkb_geometry)</datasource>
       <keywordList>
         <value></value>
       </keywordList>
@@ -2709,7 +2709,7 @@
         <ymax>35.08803329999999931</ymax>
       </extent>
       <id>BCNLAT20120905085457934</id>
-      <datasource>dbname='ENC_ES' host=labs.geogarage.com port=5432 user='martin' password='d1frukobRo3a' sslmode=disable key='tid' srid=0 type=Point checkPrimaryKeyUnicity='1' table="public"."BCNLAT" (wkb_geometry)</datasource>
+      <datasource>dbname='ENC_BC_SAMPLE_ENCX' host=labs.geogarage.com port=5432 user='martin' password='d1frukobRo3a' sslmode=disable key='tid' srid=0 type=Point checkPrimaryKeyUnicity='1' table="public"."BCNLAT" (wkb_geometry)</datasource>
       <keywordList>
         <value></value>
       </keywordList>
@@ -3832,7 +3832,7 @@
     </maplayer>
     <maplayer type="vector" wkbType="Point" maxScale="-4.65661e-10" minScale="100000000" hasScaleBasedVisibilityFlag="0" autoRefreshTime="0" geometry="Point" labelsEnabled="1" refreshOnNotifyEnabled="0" autoRefreshEnabled="0" simplifyLocal="1" simplifyAlgorithm="0" refreshOnNotifyMessage="" simplifyMaxScale="1" styleCategories="AllStyleCategories" simplifyDrawingHints="0" simplifyDrawingTol="1" readOnly="0">
       <id>BCNSPP20120905085458099</id>
-      <datasource>dbname='ENC_ES' host=labs.geogarage.com port=5432 user='martin' password='d1frukobRo3a' sslmode=disable key='tid' srid=0 type=Point checkPrimaryKeyUnicity='1' table="public"."BCNSPP" (wkb_geometry)</datasource>
+      <datasource>dbname='ENC_BC_SAMPLE_ENCX' host=labs.geogarage.com port=5432 user='martin' password='d1frukobRo3a' sslmode=disable key='tid' srid=0 type=Point checkPrimaryKeyUnicity='1' table="public"."BCNSPP" (wkb_geometry)</datasource>
       <keywordList>
         <value></value>
       </keywordList>
@@ -4577,7 +4577,7 @@
     </maplayer>
     <maplayer type="vector" wkbType="Point" maxScale="-4.65661e-10" minScale="100000000" hasScaleBasedVisibilityFlag="0" autoRefreshTime="0" geometry="Point" labelsEnabled="1" refreshOnNotifyEnabled="0" autoRefreshEnabled="0" simplifyLocal="1" simplifyAlgorithm="0" refreshOnNotifyMessage="" simplifyMaxScale="1" styleCategories="AllStyleCategories" simplifyDrawingHints="0" simplifyDrawingTol="1" readOnly="0">
       <id>BOYCAR20120905085458249</id>
-      <datasource>dbname='ENC_ES' host=labs.geogarage.com port=5432 user='martin' password='d1frukobRo3a' sslmode=disable key='tid' srid=0 type=Point checkPrimaryKeyUnicity='1' table="public"."BOYCAR" (wkb_geometry)</datasource>
+      <datasource>dbname='ENC_BC_SAMPLE_ENCX' host=labs.geogarage.com port=5432 user='martin' password='d1frukobRo3a' sslmode=disable key='tid' srid=0 type=Point checkPrimaryKeyUnicity='1' table="public"."BOYCAR" (wkb_geometry)</datasource>
       <keywordList>
         <value></value>
       </keywordList>
@@ -5340,7 +5340,7 @@
     </maplayer>
     <maplayer type="vector" wkbType="Point" maxScale="-4.65661e-10" minScale="100000000" hasScaleBasedVisibilityFlag="0" autoRefreshTime="0" geometry="Point" labelsEnabled="1" refreshOnNotifyEnabled="0" autoRefreshEnabled="0" simplifyLocal="1" simplifyAlgorithm="0" refreshOnNotifyMessage="" simplifyMaxScale="1" styleCategories="AllStyleCategories" simplifyDrawingHints="0" simplifyDrawingTol="1" readOnly="0">
       <id>BOYLAT20120905085458308</id>
-      <datasource>dbname='ENC_ES' host=labs.geogarage.com port=5432 user='martin' password='d1frukobRo3a' sslmode=disable key='tid' srid=0 type=Point checkPrimaryKeyUnicity='1' table="public"."BOYLAT" (wkb_geometry)</datasource>
+      <datasource>dbname='ENC_BC_SAMPLE_ENCX' host=labs.geogarage.com port=5432 user='martin' password='d1frukobRo3a' sslmode=disable key='tid' srid=0 type=Point checkPrimaryKeyUnicity='1' table="public"."BOYLAT" (wkb_geometry)</datasource>
       <keywordList>
         <value></value>
       </keywordList>
@@ -6370,7 +6370,7 @@
         <ymax>41.36538409999999999</ymax>
       </extent>
       <id>BRIDGE20120905085458468</id>
-      <datasource>dbname='ENC_ES' host=labs.geogarage.com port=5432 user='martin' password='d1frukobRo3a' sslmode=disable key='tid' srid=0 type=Polygon checkPrimaryKeyUnicity='1' table="public"."BRIDGE" (wkb_geometry)</datasource>
+      <datasource>dbname='ENC_BC_SAMPLE_ENCX' host=labs.geogarage.com port=5432 user='martin' password='d1frukobRo3a' sslmode=disable key='tid' srid=0 type=Polygon checkPrimaryKeyUnicity='1' table="public"."BRIDGE" (wkb_geometry)</datasource>
       <keywordList>
         <value></value>
       </keywordList>
@@ -10674,7 +10674,7 @@
         <ymax>43.5680624000000023</ymax>
       </extent>
       <id>DEPARE20120905085459228</id>
-      <datasource>dbname='ENC_ES' host=labs.geogarage.com port=5432 user='martin' password='d1frukobRo3a' sslmode=disable key='tid' srid=0 type=Polygon checkPrimaryKeyUnicity='1' table="public"."DEPARE" (wkb_geometry)</datasource>
+      <datasource>dbname='ENC_BC_SAMPLE_ENCX' host=labs.geogarage.com port=5432 user='martin' password='d1frukobRo3a' sslmode=disable key='tid' srid=0 type=Polygon checkPrimaryKeyUnicity='1' table="public"."DEPARE" (wkb_geometry)</datasource>
       <keywordList>
         <value></value>
       </keywordList>
@@ -11384,7 +11384,7 @@
         <ymax>43.44702989999999687</ymax>
       </extent>
       <id>DEPCNT20120905085459369</id>
-      <datasource>dbname='ENC_ES' host=labs.geogarage.com port=5432 user='martin' password='d1frukobRo3a' sslmode=disable key='tid' srid=0 type=LineString checkPrimaryKeyUnicity='1' table="public"."DEPCNT" (wkb_geometry)</datasource>
+      <datasource>dbname='ENC_BC_SAMPLE_ENCX' host=labs.geogarage.com port=5432 user='martin' password='d1frukobRo3a' sslmode=disable key='tid' srid=0 type=LineString checkPrimaryKeyUnicity='1' table="public"."DEPCNT" (wkb_geometry)</datasource>
       <keywordList>
         <value></value>
       </keywordList>
@@ -12366,7 +12366,7 @@
     </maplayer>
     <maplayer type="vector" wkbType="Polygon" maxScale="0" minScale="100000000" hasScaleBasedVisibilityFlag="0" autoRefreshTime="0" geometry="Polygon" labelsEnabled="1" refreshOnNotifyEnabled="0" autoRefreshEnabled="0" simplifyLocal="1" simplifyAlgorithm="0" refreshOnNotifyMessage="" simplifyMaxScale="1" styleCategories="AllStyleCategories" simplifyDrawingHints="1" simplifyDrawingTol="1" readOnly="0">
       <id>DRGARE20120905085459539</id>
-      <datasource>dbname='ENC_ES' host=labs.geogarage.com port=5432 user='martin' password='d1frukobRo3a' sslmode=disable key='tid' srid=0 type=Polygon checkPrimaryKeyUnicity='1' table="public"."DRGARE" (wkb_geometry)</datasource>
+      <datasource>dbname='ENC_BC_SAMPLE_ENCX' host=labs.geogarage.com port=5432 user='martin' password='d1frukobRo3a' sslmode=disable key='tid' srid=0 type=Polygon checkPrimaryKeyUnicity='1' table="public"."DRGARE" (wkb_geometry)</datasource>
       <keywordList>
         <value></value>
       </keywordList>
@@ -14164,7 +14164,7 @@
     </maplayer>
     <maplayer type="vector" wkbType="Point" maxScale="-4.65661e-10" minScale="100000000" hasScaleBasedVisibilityFlag="0" autoRefreshTime="0" geometry="Point" labelsEnabled="1" refreshOnNotifyEnabled="0" autoRefreshEnabled="0" simplifyLocal="1" simplifyAlgorithm="0" refreshOnNotifyMessage="" simplifyMaxScale="1" styleCategories="AllStyleCategories" simplifyDrawingHints="0" simplifyDrawingTol="1" readOnly="0">
       <id>HRBFAC20120905085459755</id>
-      <datasource>dbname='ENC_ES' host=labs.geogarage.com port=5432 user='martin' password='d1frukobRo3a' sslmode=disable key='tid' srid=0 type=Point checkPrimaryKeyUnicity='1' table="public"."HRBFAC" (wkb_geometry)</datasource>
+      <datasource>dbname='ENC_BC_SAMPLE_ENCX' host=labs.geogarage.com port=5432 user='martin' password='d1frukobRo3a' sslmode=disable key='tid' srid=0 type=Point checkPrimaryKeyUnicity='1' table="public"."HRBFAC" (wkb_geometry)</datasource>
       <keywordList>
         <value></value>
       </keywordList>
@@ -15323,7 +15323,7 @@
         <ymax>43.48714290000000204</ymax>
       </extent>
       <id>LIGHTS20120905085459870</id>
-      <datasource>dbname='ENC_ES' host=labs.geogarage.com port=5432 user='martin' password='d1frukobRo3a' sslmode=disable key='tid' srid=0 type=Point checkPrimaryKeyUnicity='1' table="public"."LIGHTS" (wkb_geometry)</datasource>
+      <datasource>dbname='ENC_BC_SAMPLE_ENCX' host=labs.geogarage.com port=5432 user='martin' password='d1frukobRo3a' sslmode=disable key='tid' srid=0 type=Point checkPrimaryKeyUnicity='1' table="public"."LIGHTS" (wkb_geometry)</datasource>
       <keywordList>
         <value></value>
       </keywordList>
@@ -16102,7 +16102,7 @@
         <ymax>44</ymax>
       </extent>
       <id>LNDARE20120905085459942</id>
-      <datasource>dbname='ENC_ES' host=labs.geogarage.com port=5432 user='martin' password='d1frukobRo3a' sslmode=disable key='tid' srid=0 type=Polygon checkPrimaryKeyUnicity='1' table="public"."LNDARE" (wkb_geometry)</datasource>
+      <datasource>dbname='ENC_BC_SAMPLE_ENCX' host=labs.geogarage.com port=5432 user='martin' password='d1frukobRo3a' sslmode=disable key='tid' srid=0 type=Polygon checkPrimaryKeyUnicity='1' table="public"."LNDARE" (wkb_geometry)</datasource>
       <keywordList>
         <value></value>
       </keywordList>
@@ -17113,7 +17113,7 @@
         <ymax>43.48714290000000204</ymax>
       </extent>
       <id>LNDMRK20120905085500091</id>
-      <datasource>dbname='ENC_ES' host=labs.geogarage.com port=5432 user='martin' password='d1frukobRo3a' sslmode=disable key='tid' srid=0 type=Polygon checkPrimaryKeyUnicity='1' table="public"."LNDMRK" (wkb_geometry)</datasource>
+      <datasource>dbname='ENC_BC_SAMPLE_ENCX' host=labs.geogarage.com port=5432 user='martin' password='d1frukobRo3a' sslmode=disable key='tid' srid=0 type=Polygon checkPrimaryKeyUnicity='1' table="public"."LNDMRK" (wkb_geometry)</datasource>
       <keywordList>
         <value></value>
       </keywordList>
@@ -17966,7 +17966,7 @@
         <ymax>44</ymax>
       </extent>
       <id>M_COVR_bbe17354_b1c2_4633_b27e_8ac24836d292</id>
-      <datasource>dbname='ENC_ES' host=labs.geogarage.com port=5432 user='martin' password='d1frukobRo3a' sslmode=disable key='tid' srid=0 type=Polygon checkPrimaryKeyUnicity='1' table="public"."M_COVR" (wkb_geometry)</datasource>
+      <datasource>dbname='ENC_BC_SAMPLE_ENCX' host=labs.geogarage.com port=5432 user='martin' password='d1frukobRo3a' sslmode=disable key='tid' srid=0 type=Polygon checkPrimaryKeyUnicity='1' table="public"."M_COVR" (wkb_geometry)</datasource>
       <keywordList>
         <value></value>
       </keywordList>
@@ -18998,7 +18998,7 @@ def my_form_open(dialog, layer, feature):
         <ymax>43.125</ymax>
       </extent>
       <id>OBSTRN20120905085500674</id>
-      <datasource>dbname='ENC_ES' host=labs.geogarage.com port=5432 user='martin' password='d1frukobRo3a' sslmode=disable key='tid' srid=0 type=Polygon checkPrimaryKeyUnicity='1' table="public"."OBSTRN" (wkb_geometry)</datasource>
+      <datasource>dbname='ENC_BC_SAMPLE_ENCX' host=labs.geogarage.com port=5432 user='martin' password='d1frukobRo3a' sslmode=disable key='tid' srid=0 type=Polygon checkPrimaryKeyUnicity='1' table="public"."OBSTRN" (wkb_geometry)</datasource>
       <keywordList>
         <value></value>
       </keywordList>
@@ -21127,7 +21127,7 @@ def my_form_open(dialog, layer, feature):
         <ymax>36.47415399999999863</ymax>
       </extent>
       <id>RESARE20120905085500972</id>
-      <datasource>dbname='ENC_ES' host=labs.geogarage.com port=5432 user='martin' password='d1frukobRo3a' sslmode=disable key='tid' srid=0 type=Polygon checkPrimaryKeyUnicity='1' table="public"."RESARE" (wkb_geometry)</datasource>
+      <datasource>dbname='ENC_BC_SAMPLE_ENCX' host=labs.geogarage.com port=5432 user='martin' password='d1frukobRo3a' sslmode=disable key='tid' srid=0 type=Polygon checkPrimaryKeyUnicity='1' table="public"."RESARE" (wkb_geometry)</datasource>
       <keywordList>
         <value></value>
       </keywordList>
@@ -22235,7 +22235,7 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer type="vector" wkbType="Point" maxScale="0" minScale="100000000" hasScaleBasedVisibilityFlag="0" autoRefreshTime="0" geometry="Point" labelsEnabled="1" refreshOnNotifyEnabled="0" autoRefreshEnabled="0" simplifyLocal="1" simplifyAlgorithm="0" refreshOnNotifyMessage="" simplifyMaxScale="1" styleCategories="AllStyleCategories" simplifyDrawingHints="1" simplifyDrawingTol="1" readOnly="0">
       <id>SBDARE20120905085501157</id>
-      <datasource>dbname='ENC_ES' host=labs.geogarage.com port=5432 user='martin' password='d1frukobRo3a' sslmode=disable key='tid' srid=0 type=Point checkPrimaryKeyUnicity='1' table="public"."SBDARE" (wkb_geometry)</datasource>
+      <datasource>dbname='ENC_BC_SAMPLE_ENCX' host=labs.geogarage.com port=5432 user='martin' password='d1frukobRo3a' sslmode=disable key='tid' srid=0 type=Point checkPrimaryKeyUnicity='1' table="public"."SBDARE" (wkb_geometry)</datasource>
       <keywordList>
         <value></value>
       </keywordList>
@@ -23619,7 +23619,7 @@ def my_form_open(dialog, layer, feature):
         <ymax>43.55575319999999806</ymax>
       </extent>
       <id>SLCONS20120905085501363</id>
-      <datasource>dbname='ENC_ES' host=labs.geogarage.com port=5432 user='martin' password='d1frukobRo3a' sslmode=disable key='tid' srid=0 type=Polygon checkPrimaryKeyUnicity='1' table="public"."SLCONS" (wkb_geometry)</datasource>
+      <datasource>dbname='ENC_BC_SAMPLE_ENCX' host=labs.geogarage.com port=5432 user='martin' password='d1frukobRo3a' sslmode=disable key='tid' srid=0 type=Polygon checkPrimaryKeyUnicity='1' table="public"."SLCONS" (wkb_geometry)</datasource>
       <keywordList>
         <value></value>
       </keywordList>
@@ -24350,7 +24350,7 @@ def my_form_open(dialog, layer, feature):
         <ymax>43.20759069999999724</ymax>
       </extent>
       <id>SOUNDG_ccfd56f6_2390_4015_b34e_342ff0bfb2a9</id>
-      <datasource>dbname='ENC_ES' host=labs.geogarage.com port=5432 user='martin' password='d1frukobRo3a' sslmode=disable key='tid' srid=0 type=Point checkPrimaryKeyUnicity='1' table="public"."SOUNDG" (wkb_geometry)</datasource>
+      <datasource>dbname='ENC_BC_SAMPLE_ENCX' host=labs.geogarage.com port=5432 user='martin' password='d1frukobRo3a' sslmode=disable key='tid' srid=0 type=Point checkPrimaryKeyUnicity='1' table="public"."SOUNDG" (wkb_geometry)</datasource>
       <keywordList>
         <value></value>
       </keywordList>
@@ -25674,7 +25674,7 @@ def my_form_open(dialog, layer, feature):
     </maplayer>
     <maplayer type="vector" wkbType="Point" maxScale="-4.65661e-10" minScale="100000000" hasScaleBasedVisibilityFlag="0" autoRefreshTime="0" geometry="Point" labelsEnabled="1" refreshOnNotifyEnabled="0" autoRefreshEnabled="0" simplifyLocal="1" simplifyAlgorithm="0" refreshOnNotifyMessage="" simplifyMaxScale="1" styleCategories="AllStyleCategories" simplifyDrawingHints="1" simplifyDrawingTol="1" readOnly="0">
       <id>WRECKS20120905085501650</id>
-      <datasource>dbname='ENC_ES' host=labs.geogarage.com port=5432 user='martin' password='d1frukobRo3a' sslmode=disable key='tid' srid=0 type=Point checkPrimaryKeyUnicity='1' table="public"."WRECKS" (wkb_geometry)</datasource>
+      <datasource>dbname='ENC_BC_SAMPLE_ENCX' host=labs.geogarage.com port=5432 user='martin' password='d1frukobRo3a' sslmode=disable key='tid' srid=0 type=Point checkPrimaryKeyUnicity='1' table="public"."WRECKS" (wkb_geometry)</datasource>
       <keywordList>
         <value></value>
       </keywordList>
